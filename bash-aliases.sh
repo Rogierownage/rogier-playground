@@ -249,7 +249,7 @@ clearLogs() {
 }
 
 # Track the Laravel log for the given word, including incoming messages.
-trackLog ()
+trackLog()
 {
     if [ -d storage ]; then
         file=$PWD/storage/logs/laravel-$(date +%Y-%m-%d).log;
@@ -264,16 +264,28 @@ trackLog ()
 }
 
 # Run any necessary ide helpers for vsCode
-vscodeIdeHelpers ()
+vscodeIdeHelpers()
 {
     ./artisan ide-helper:meta
 }
 
 # Replace the images for the memory game with a better alternative.
-betterMemoryGame ()
+betterMemoryGame()
 {
     rm ~/projects/jtipor/public_html/dist/winston-memory/images/deck/ -r
     cp ~/Documents/smoking-animals/deck ~/projects/jtipor/public_html/dist/winston-memory/images -r
+}
+
+# Command for when i arrive at work to start up all the apps i use, etc.
+startEverything() {
+    firefox
+    slack
+    dockercd start
+    code
+    thg &
+    
+    gnome-terminal
+    sshDockerhero
 }
 
 # Run the previous command in sudo. For when something doesn't work for some stupid permissions-related reason.
