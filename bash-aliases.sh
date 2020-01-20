@@ -2,13 +2,13 @@
 bashalias() {
     path='/home/rogier/projects/rogier-playground/bash-aliases.sh'
     
-    gedit $path
+    gedit $path &
     source $path
 }
 
 # Edit the hosts file.
 hosts() {
-    sudo nano /etc/hosts
+    sudo gedit /etc/hosts
 }
 
 # Determine the branch from the story key.
@@ -72,7 +72,8 @@ dockerreboot() {
 
 # Set the php version in the docker-compose.override.yml file and then reboot docker.
 dockerphpversion() {
-    sed -i "s/dockerhero-php-[0-9.]*-/dockerhero-php-$1-/" /home/rogier/projects/dockerhero/docker-compose.override.yml
+    sed -i "s/dockerhero-php-[0-9.]*/dockerhero-php-$1/" /home/rogier/projects/dockerhero/docker-compose.override.yml
+    sed -i "s/dockerhero-workspace\:php[0-9.]*/dockerhero-workspace:php$1/" /home/rogier/projects/dockerhero/docker-compose.override.yml
     
     dockerreboot
 }
@@ -277,15 +278,17 @@ betterMemoryGame()
 }
 
 # Command for when i arrive at work to start up all the apps i use, etc.
+# Note: I close the terminal because otherwise i get weird errors from firefox when i enter the Docker container.
+# I then open one terminal for using the docker container and one for other stuff.
 startEverything() {
-    firefox
-    slack
+    gnome-terminal --working-directory="projects" &
+    gnome-terminal --working-directory="projects" &
+    firefox &
+    slack &
+    code &
     dockercd start
-    code
-    thg &
-    
-    gnome-terminal
-    sshDockerhero
+
+    exit
 }
 
 # Run the previous command in sudo. For when something doesn't work for some stupid permissions-related reason.
