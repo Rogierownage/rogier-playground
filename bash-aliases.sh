@@ -277,19 +277,30 @@ betterMemoryGame()
     cp ~/Documents/smoking-animals/deck ~/projects/jtipor/public_html/dist/winston-memory/images -r
 }
 
-# Command for when i arrive at work to start up all the apps i use, etc.
-# Note: I close the terminal because otherwise i get weird errors from firefox when i enter the Docker container.
-# I then open one terminal for using the docker container and one for other stuff.
+# Command for when i arrive at work to start up all the apps i use, etc. Also runs a system update.
+# Note: I close the terminal that's running all the apps, because otherwise i get weird errors from firefox when i enter the Docker container.
+# I also open one terminal for using the docker container and one for other stuff.
 startEverything() {
     gnome-terminal --working-directory="projects" &
     gnome-terminal --working-directory="projects" &
     firefox &
     slack &
     code &
+    gitkraken &
     dockercd start
 
+    xterm -hold -e 'source /home/rogier/projects/rogier-playground/bash-aliases.sh; updateAndRemove' &
+	
     exit
 }
+
+# Play the game "Descent 2 (DEMO)"
+game() {
+    d2x-rebirth   
+}
+
+### Add composer to path
+export PATH="$PATH:$HOME/.composer/vendor/bin" # load composer
 
 # Run the previous command in sudo. For when something doesn't work for some stupid permissions-related reason.
 alias fuck='sudo $(history -p \!\!)'
