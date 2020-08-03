@@ -333,20 +333,12 @@ fixDockerHosts() {
         iterator=$(expr $iterator + 1)
     done
 
-    echo 'dockerhero_web:'
-    echo $dockerHostWeb
-    echo 'dockerhero_php:'
-    echo $dockerHostPhp
-    echo 'dockerhero_workspace:'
-    echo $dockerHostWorkspace
-    echo 'dockerhero_db:'
-    echo $dockerHostDb
-    echo 'dockerhero_redis:'
-    echo $dockerHostRedis
-    echo 'dockerhero_mail:'
-    echo $dockerHostMail
-
-    sudo sed -i 's/.*dockerhero_web/999.20.0.7 dockerhero_web/' /etc/hosts
+    sudo sed -i "s/.*dockerhero_web/$dockerHostWeb dockerhero_web/" /etc/hosts
+    sudo sed -i "s/.*dockerhero_php/$dockerHostPhp dockerhero_php/" /etc/hosts
+    sudo sed -i "s/.*dockerhero_workspace/$dockerHostWorkspace dockerhero_workspace/" /etc/hosts
+    sudo sed -i "s/.*dockerhero_db/$dockerHostDb dockerhero_db/" /etc/hosts
+    sudo sed -i "s/.*dockerhero_redis/$dockerHostRedis dockerhero_redis/" /etc/hosts
+    sudo sed -i "s/.*dockerhero_mail/$dockerHostMail dockerhero_mail/" /etc/hosts
 }
 
 # Run Yarn watch in the Venapp frontend
