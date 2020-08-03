@@ -300,8 +300,6 @@ game() {
 }
 
 # Fix the hosts file when the docker host IPs have changed, like after changing PHP version.
-#
-# Note: This is a WIP. TODO: Replace the docker hosts in the hosts file with this result.
 fixDockerHosts() {
     dockerHosts=`dockerHosts`
     dockerHostsAsArray=($(echo $dockerHosts))
