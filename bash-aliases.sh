@@ -1,9 +1,9 @@
 # Open this file and reload it so that any previous changes can be used in the current terminal.
 bashalias() {
-    path='/home/rogier/projects/rogier-playground/bash-aliases.sh'
+    aliasPath='/home/developer/projects/rogier-playground/bash-aliases.sh'
     
-    gedit $path &
-    source $path
+    gedit $aliasPath
+    source $aliasPath
 }
 
 # Edit the hosts file.
@@ -44,7 +44,7 @@ dockercd() {
     arguments=$2
     directory=""
     
-    targetDirectory="/home/rogier/projects/$2"
+    targetDirectory="/home/developer/projects/$2"
     
     if [ "$2" ] && [ -d "$targetDirectory" ]; then
         arguments=""
@@ -52,7 +52,7 @@ dockercd() {
     fi
     
     initialDirectory=$PWD
-    cd /home/rogier/projects/dockerhero
+    cd /home/developer/projects/dockerhero
     
     docker-compose $command $arguments
     
@@ -72,8 +72,8 @@ dockerreboot() {
 
 # Set the php version in the docker-compose.override.yml file and then reboot docker.
 dockerphpversion() {
-    sed -i "s/dockerhero-php-[0-9.]*/dockerhero-php-$1/" /home/rogier/projects/dockerhero/docker-compose.override.yml
-    sed -i "s/dockerhero-workspace\:php[0-9.]*/dockerhero-workspace:php$1/" /home/rogier/projects/dockerhero/docker-compose.override.yml
+    sed -i "s/dockerhero-php-[0-9.]*/dockerhero-php-$1/" /home/developer/projects/dockerhero/docker-compose.override.yml
+    sed -i "s/dockerhero-workspace\:php[0-9.]*/dockerhero-workspace:php$1/" /home/developer/projects/dockerhero/docker-compose.override.yml
     
     dockerreboot
 }
@@ -289,7 +289,7 @@ startEverything() {
     gitkraken &
     dockercd start
 
-    xterm -hold -e 'source /home/rogier/projects/rogier-playground/bash-aliases.sh; updateAndRemove' &
+    xterm -hold -e 'source /home/developer/projects/rogier-playground/bash-aliases.sh; updateAndRemove' &
 	
     exit
 }
@@ -297,6 +297,34 @@ startEverything() {
 # Play the game "Descent 2 (DEMO)"
 game() {
     d2x-rebirth   
+}
+
+# Fix the hosts file when the docker host IPs have changed, like after changing PHP version.
+#
+# Note: This is a WIP. TODO: Replace the docker hosts in the hosts file with this result.
+fixDockerHosts() {
+    hosts=`dockerHosts`
+    hostsAsArray=($(echo $hosts))
+
+    previousIterator=0
+    iterator=0
+    for i in "${hostsAsArray[@]}"
+    do
+        echo $previousIterator
+        echo $iterator
+        echo $i
+        previousIterator=$iterator
+        iterator=$(expr $iterator + 1)
+    done
+
+    # sed -i 's/.*dockerhero_web/172.20.0.7 dockerhero_web/' hosts
+}
+
+# Run Yarn watch in the Venapp frontend
+yarnvenapp() {
+    cd /home/developer/projects/venapp/resources/assets/front/src
+
+    yarn watch
 }
 
 ### Add composer to path
