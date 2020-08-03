@@ -346,7 +346,7 @@ fixDockerHosts() {
     echo 'dockerhero_mail:'
     echo $dockerHostMail
 
-    # sed -i 's/.*dockerhero_web/172.20.0.7 dockerhero_web/' hosts
+    sudo sed -i 's/.*dockerhero_web/999.20.0.7 dockerhero_web/' /etc/hosts
 }
 
 # Run Yarn watch in the Venapp frontend
