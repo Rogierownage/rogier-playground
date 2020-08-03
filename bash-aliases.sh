@@ -303,19 +303,48 @@ game() {
 #
 # Note: This is a WIP. TODO: Replace the docker hosts in the hosts file with this result.
 fixDockerHosts() {
-    hosts=`dockerHosts`
-    hostsAsArray=($(echo $hosts))
+    dockerHosts=`dockerHosts`
+    dockerHostsAsArray=($(echo $dockerHosts))
 
-    previousIterator=0
-    iterator=0
-    for i in "${hostsAsArray[@]}"
+    previousIterator=1
+    iterator=1
+    for i in "${dockerHostsAsArray[@]}"
     do
-        echo $previousIterator
-        echo $iterator
-        echo $i
+        if [ "$i" = "dockerhero_web" ]; then
+            dockerHostWeb="${dockerHostsAsArray[$previousIterator]}"
+	fi
+	if [ "$i" = "dockerhero_php" ]; then
+            dockerHostPhp="${dockerHostsAsArray[$previousIterator]}"
+	fi
+	if [ "$i" = "dockerhero_workspace" ]; then
+            dockerHostWorkspace="${dockerHostsAsArray[$previousIterator]}"
+	fi
+	if [ "$i" = "dockerhero_db" ]; then
+            dockerHostDb="${dockerHostsAsArray[$previousIterator]}"
+	fi
+	if [ "$i" = "dockerhero_redis" ]; then
+            dockerHostRedis="${dockerHostsAsArray[$previousIterator]}"
+	fi
+	if [ "$i" = "dockerhero_mail" ]; then
+            dockerHostMail="${dockerHostsAsArray[$previousIterator]}"
+	fi
+
         previousIterator=$iterator
         iterator=$(expr $iterator + 1)
     done
+
+    echo 'dockerhero_web:'
+    echo $dockerHostWeb
+    echo 'dockerhero_php:'
+    echo $dockerHostPhp
+    echo 'dockerhero_workspace:'
+    echo $dockerHostWorkspace
+    echo 'dockerhero_db:'
+    echo $dockerHostDb
+    echo 'dockerhero_redis:'
+    echo $dockerHostRedis
+    echo 'dockerhero_mail:'
+    echo $dockerHostMail
 
     # sed -i 's/.*dockerhero_web/172.20.0.7 dockerhero_web/' hosts
 }
