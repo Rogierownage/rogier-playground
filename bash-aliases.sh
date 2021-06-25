@@ -380,6 +380,10 @@ updateGitKraken() {
     rm ./gitkraken.deb
 }
 
+prepush() {
+    ./.git/pre-push.sh
+}
+
 ### Add composer to path
 export PATH="$PATH:$HOME/.composer/vendor/bin" # load composer
 
