@@ -346,6 +346,40 @@ yarnvenapp() {
     yarn watch
 }
 
+# Run Yarn watch in the JTI F&P frontend
+yarnjtifp() {
+    cd /home/developer/projects/jtipor/resources/assets/food-petrol/src
+
+    yarn watch
+}
+
+# Run GitKraken without affecting the current terminal.
+# It will still shut down if the terminal is shut down, however.
+kraken() {
+    gitkraken </dev/null &>/dev/null &
+}
+
+startup() {
+    kraken
+    dockercd start
+}
+
+updateGitKraken() {
+    echo '-------------------'
+    echo 'Downloading release'
+    echo '-------------------'
+    wget -O gitkraken.deb https://release.gitkraken.com/linux/gitkraken-amd64.deb
+    echo '-------------------'
+    echo 'Installing release'
+    echo '-------------------'
+    sudo dpkg -i ./gitkraken.deb
+    sudo apt-get install -f
+    echo '-------------------'
+    echo 'Remove release'
+    echo '-------------------'
+    rm ./gitkraken.deb
+}
+
 ### Add composer to path
 export PATH="$PATH:$HOME/.composer/vendor/bin" # load composer
 
