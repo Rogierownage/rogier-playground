@@ -49,3 +49,7 @@ arg1 -ge arg2
 
 For loops:
 Perform an action for a list of items
+
+Arrays:
+Define arrays like this:
+varName=(1 2 3 "Test")
