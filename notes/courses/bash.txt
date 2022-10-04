@@ -1,0 +1,51 @@
+#!/bin/bash
+Is called a shebang and determines what shell is used to interpret the script
+
+ps -fp 9000
+Examine the process with PID 9000
+
+ps -ef
+Show all the commands executed by the shell
+
+Variables:
+variableName="value"
+Assign variable
+variableName=$(command)
+Assign the output of a command
+variableName=`command`
+Old syntax for assigning the output of a command
+echo $variableName
+Echo a variable
+echo "$variableName"
+Echo a variable as part of a string
+echo "${variableName}"
+Echo a variable as part of a string, with more control
+Variables can have letters (upper and lower), digits, underscores. But not dashes, atsigns, or starting with digits
+
+Tests:
+A test is a conditional that checks if a value is true
+[ condition-to-test-for ]
+[ -e /etc/passwd ]
+File operators:
+-d FILE - file is a directory
+-e FILE - file exists
+-f FILE - file exists and is a regular file (not a symlink for example)
+-r FILE - file is readable by you
+-s FILE - file exists and is not empty
+-w FILE - file is writable by you
+-x FILE - file is executable by you
+String operators:
+-z STRING - string is empty
+-n STRING - string is not empty
+STRING1 = STRING2 - strings are equal
+STRING1 != STRING2 - strings are not equal
+Arithmetic operators:
+arg1 -eq arg2
+arg1 -ne arg2
+arg1 -lt arg2
+arg1 -le arg2
+arg1 -gt arg2
+arg1 -ge arg2
+
+For loops:
+Perform an action for a list of items
