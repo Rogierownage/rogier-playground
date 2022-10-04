@@ -1,11 +1,12 @@
 #!/bin/bash
+
+cd ../image-files
 pictures=$(ls *.jpg)
 date=$(date +%F)
 
-echo $pictures
-echo $date
-
 for picture in $pictures
 do
-    cp "$picture" "$date-$picture"
+    newName="$date-$picture"
+    echo "Renaming $picture to $newName"
+    cp "$picture" "$newName"
 done
