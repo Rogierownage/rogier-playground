@@ -26,6 +26,6 @@ variableThree=Banana
 
 echo "You are running this script on $variableThree"
 
-variableThree=`hostname`
+variableThree=$(hostname)
 
 echo "You are running this script on $variableThree"

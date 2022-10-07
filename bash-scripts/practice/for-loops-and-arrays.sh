@@ -14,7 +14,7 @@ done
 
 myArray=(1 2 "Haha")
 
-echo ${myArray[2]}
+echo "${myArray[2]}"
 
 echo "${myArray[0]} ${myArray[1]} ${myArray[2]}${myArray[3]}"
 

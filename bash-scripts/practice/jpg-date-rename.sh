@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd ../image-files
+cd ../image-files || exit 
 pictures=$(ls *.jpg)
 date=$(date +%F)
 

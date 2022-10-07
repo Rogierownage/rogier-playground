@@ -2,9 +2,8 @@
 
 fileName="./generated-scripts/echo-positional-parameters.sh"
 
+rm $fileName
 touch $fileName
-
-echo > $fileName
 
 for var in {0..9}; do
     echo "echo \$$var" >> $fileName

@@ -24,9 +24,9 @@ fi
 rm -r dir
 
 directory=$(pwd)
-echo $directory
+echo "$directory"
 
-if [ -n $directory ]
+if [ -n "$directory" ]
 then
     echo "Condition is true"
 fi
