@@ -41,3 +41,8 @@ for variable in 1 2 ${colorsString} ${myArray[@]}
 do
     echo "Variable is: $variable"
 done
+
+for animal in man bear pig dog cat sheep
+do
+    echo "$animal"
+done

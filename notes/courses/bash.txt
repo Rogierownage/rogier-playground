@@ -53,3 +53,16 @@ Perform an action for a list of items
 Arrays:
 Define arrays like this:
 varName=(1 2 3 "Test")
+
+Exit status:
+Every time a command is executed it returns an exit status (return code / exit code)
+ranges from 0-255
+0 = success
+nonzero = error
+nonzero error codes mean different things for different commands. They are not generalized.
+Check the man page of a command to see what each error code means for that command
+variable $? contains the exit code of the previously executed command
+
+Using AND / OR to execute commands
+if && is used, the next command will only execute if the previous command returns 0 exit code
+if || is used, the next command will only execute if the previous command returns nonzero exit code
