@@ -62,7 +62,18 @@ nonzero = error
 nonzero error codes mean different things for different commands. They are not generalized.
 Check the man page of a command to see what each error code means for that command
 variable $? contains the exit code of the previously executed command
+You can return an exit code by using the exit command. For example: exit 1
+If you do not use exit, or you use it without a number, then the exit code of the last command is returned.
 
 Using AND / OR to execute commands
 if && is used, the next command will only execute if the previous command returns 0 exit code
 if || is used, the next command will only execute if the previous command returns nonzero exit code
+if ; is used, all commands will always run.
+
+Redirections
+echo "text" > file.txt
+Sends text to the file
+1> sends only stdout and is the default for >
+2> sends only stderr
+&> sends both stdout and stderr and can be used to completely silence a command. For example: ping -c 1 "$host" &> /dev/null
+Finally, 0 would be stdin but is not relevant in this context.
