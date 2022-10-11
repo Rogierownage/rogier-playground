@@ -77,3 +77,15 @@ Sends text to the file
 2> sends only stderr
 &> sends both stdout and stderr and can be used to completely silence a command. For example: ping -c 1 "$host" &> /dev/null
 Finally, 0 would be stdin but is not relevant in this context.
+
+Functions
+There are two ways to define functions:
+function function-name() {
+    # Code goes here
+}
+function-name() {
+    # Code goes here
+}
+To call a function, simply put the function's name on its own line. Do not use parentheses. For example:
+function-name
+A function must be defined before it is used. Order is relevant.
