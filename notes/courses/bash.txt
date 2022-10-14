@@ -89,3 +89,10 @@ function-name() {
 To call a function, simply put the function's name on its own line. Do not use parentheses. For example:
 function-name
 A function must be defined before it is used. Order is relevant.
+
+Variable scope
+By default, variables are global (Except for positional parameters)
+Using a variable before it is defined will just result in nothing
+Local variables use function scope. Define them by putting local in front of the variable definition.
+Only functions can have local variables.
+Local variables are best practice.

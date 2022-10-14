@@ -21,17 +21,17 @@ hgstory() {
     hg pull
     
     branch="feature/$story"
-    existingBranch=`hg branches | grep "$branch"`
+    existingBranch=$(hg branches | grep "$branch")
     
     if [ ! -z "$existingBranch" ]; then
         echo "Upping to branch $branch"
         
-        hg up $branch -C
+        hg up "$branch" -C
     else
         echo "Creating branch $branch from default"
         
         hg up default -C
-        hg branch $branch
+        hg branch "$branch"
     fi
 }
 
@@ -52,14 +52,14 @@ dockercd() {
     fi
     
     initialDirectory=$PWD
-    cd /home/developer/projects/dockerhero
+    cd /home/developer/projects/dockerhero || exit
     
-    docker-compose $command $arguments
+    docker-compose "$command" "$arguments"
     
     if [ "$directory" ]; then
-        cd $directory
+        cd $directory || exit
     else
-        cd $initialDirectory
+        cd $initialDirectory || exit
     fi
 }
 
@@ -82,13 +82,13 @@ dockerphpversion() {
 # Clone the given Mercurial repository from Bitbucket.
 hgclone() {
     repository=$1
-    hg clone ssh://hg@bitbucket.org/way2dev/$repository
+    hg clone ssh://hg@bitbucket.org/way2dev/"$repository"
 }
 
 # Clone the given Git repository from Bitbucket
 gitclone() {
     repository=$1
-    git clone git@bitbucket.org:way2dev/$repository.git
+    git clone git@bitbucket.org:way2dev/"$repository".git
 }
 
 # View hg diff inside of Less.
@@ -130,7 +130,7 @@ openPuppetPage() {
     repository=$1
     url=https://pipelines.puppet.com/way2devops/apps/$repository
     
-    xdg-open $url
+    xdg-open "$url"
 }
 
 # Merge default into release/accept for deploying to acceptance,
@@ -143,7 +143,7 @@ hgAcceptance() {
     
     hg pull
     
-    branch=`hgGetAcceptanceBranch`
+    branch=$(hgGetAcceptanceBranch)
     
     if [ -z "$branch" ]; then
         echo "Failed to find branch"
@@ -153,30 +153,30 @@ hgAcceptance() {
     
     read -p ">> Deploying to $branch branch, is this correct? Y/N: " confirmation
     
-    if [ $confirmation != 'Y' ] && [ $confirmation != 'y' ]; then
+    if [ "$confirmation" != 'Y' ] && [ "$confirmation" != 'y' ]; then
         return
     fi
     
-    hg up $branch -C
+    hg up "$branch" -C
     
     hg merge default
     hg commit -m "Merge with default"
     hg push
     
-    repository=`basename $PWD`
+    repository=$(basename $PWD)
     
-    openPuppetPage $repository
+    openPuppetPage "$repository"
 }
 
 # Finds the branch that corresponds to the acceptance environment, which is automatically deployed on every commit.
 hgGetAcceptanceBranch() {
-    if [[ ! -z `hg log -b accept 2> /dev/null` ]]; then
+    if [[ ! -z $(hg log -b accept 2> /dev/null) ]]; then
         echo accept
         
         return
     fi
     
-    if [[ ! -z `hg log -b release 2> /dev/null` ]]; then
+    if [[ ! -z $(hg log -b release 2> /dev/null) ]]; then
         echo release
         
         return
@@ -188,7 +188,7 @@ hgGetAcceptanceBranch() {
 
 # Run Ngrok for the given project
 ngrokStart() {
-    ./ngrok http 127.0.0.1:80 -host-header=$1.localtest.me
+    ./ngrok http 127.0.0.1:80 -host-header="$1".localtest.me
 }
 
 # Explode the supplied string into parts, and grep each one in the supplied directory.
@@ -198,9 +198,9 @@ ngrokStart() {
 grepExplode() {
     echo
     
-    for word in $(echo $2 | tr "," "\n")
+    for word in $(echo "$2" | tr "," "\n")
     do
-        result=`grep -rn $word $1`
+        result=$(grep -rn "$word" $1)
         
         if [ -z "$result" ]; then
             echo "Result is empty for $word"
@@ -213,7 +213,7 @@ showStory() {
     story=$1
     
     if ! [ "$story" ]; then
-        branch=`hg branch`
+        branch=$(hg branch)
         prefix=${branch:0:8}
         featurePrefix="feature/"
         
@@ -225,7 +225,7 @@ showStory() {
     if [ "$story" ]; then
         url=https://way2web.atlassian.net/browse/$story
         
-        xdg-open $url
+        xdg-open "$url"
     fi
 }
 
@@ -238,10 +238,10 @@ refTerm() {
 
 # Opens the Bitbucket page to diff the two revisions.
 diffRevisions() {
-    repository=`basename $PWD`
+    repository=$(basename $PWD)
     url="https://bitbucket.org/way2dev/$repository/branches/compare/$1..$2#diff"
     
-    xdg-open $url
+    xdg-open "$url"
 }
 
 # Delete all the Laravel logs for the current repository.
@@ -254,10 +254,10 @@ trackLog()
 {
     if [ -d storage ]; then
         file=$PWD/storage/logs/laravel-$(date +%Y-%m-%d).log;
-        if [ ! -f $file ]; then
-            touch $file;
+        if [ ! -f "$file" ]; then
+            touch "$file";
         fi;
-        tail -f $file | grep --color=auto -C5 $1;
+        tail -f "$file" | grep --color=auto -C5 "$1";
     else
         echo "Only compatible with laravel style logging";
         exit 1;
@@ -301,8 +301,8 @@ game() {
 
 # Fix the hosts file when the docker host IPs have changed, like after changing PHP version.
 fixDockerHosts() {
-    dockerHosts=`dockerHosts`
-    dockerHostsAsArray=($(echo $dockerHosts))
+    dockerHosts=$(dockerHosts)
+    dockerHostsAsArray=($(echo "$dockerHosts"))
 
     previousIterator=1
     iterator=1
@@ -341,14 +341,14 @@ fixDockerHosts() {
 
 # Run Yarn watch in the Venapp frontend
 yarnvenapp() {
-    cd /home/developer/projects/venapp/resources/assets/front/src
+    cd /home/developer/projects/venapp/resources/assets/front/src || exit
 
     yarn watch
 }
 
 # Run Yarn watch in the JTI F&P frontend
 yarnjtifp() {
-    cd /home/developer/projects/jtipor/resources/assets/food-petrol/src
+    cd /home/developer/projects/jtipor/resources/assets/food-petrol/src || exit
 
     yarn watch
 }
@@ -364,7 +364,7 @@ kraken() {
 # If an argument is given, it navigates to that project's directory.
 startup() {
     kraken
-    dockercd start $1
+    dockercd start "$1"
 }
 
 updateGitKraken() {
