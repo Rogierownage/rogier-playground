@@ -54,7 +54,7 @@ dockercd() {
     initialDirectory=$PWD
     cd /home/developer/projects/dockerhero || exit
     
-    docker-compose "$command" "$arguments"
+    docker-compose $command $arguments
     
     if [ "$directory" ]; then
         cd $directory || exit
