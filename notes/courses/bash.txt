@@ -96,3 +96,9 @@ Using a variable before it is defined will just result in nothing
 Local variables use function scope. Define them by putting local in front of the variable definition.
 Only functions can have local variables.
 Local variables are best practice.
+
+Double quotes
+Disables word splitting and most forms of expansion. Variable expansion is not disabled.
+
+Brace expansion
+Brace expansion causes a braced expression to be split into multiple parts. For example, echo a{d,c,b}e would echo "ade", "ace", and "abe"
