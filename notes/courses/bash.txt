@@ -102,3 +102,21 @@ Disables word splitting and most forms of expansion. Variable expansion is not d
 
 Brace expansion
 Brace expansion causes a braced expression to be split into multiple parts. For example, echo a{d,c,b}e would echo "ade", "ace", and "abe"
+
+Wildcards
+A wildcard is a character or string used to match file and directory names
+Wildcards create search patterns, which when expanded (globbing) create a list of matching results
+Wildcards can be used with commands that accept a filename or directory.
+* matches zero or more characters. In other words, anything.
+? matches exactly one character.
+[] matches exactly one character, but only from the characters inside the brackets (Character Class)
+[!] matches exactly one character, but only from characters that are NOT inside the brackets
+Ranges can also be used, like [a-g]
+There are also predefined named character classes which can be used:
+[[:alpha:]] - Matches letters [a-zA-Z]
+[[:alnum:]] - Matches letters and digits [a-zA-Z0-9]
+[[:digit:]] - Matches digits [0-9]
+[[:lower:]] - Matches lowercase letters [a-z]
+[[:space:]] - Matches whitespace
+[[:upper:]] - Matches uppercase letters [A-Z]
+If you want to match a character literally, use backslashes to escape it.
