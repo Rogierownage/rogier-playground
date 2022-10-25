@@ -126,3 +126,19 @@ Case statements allow you to check a variable against multiple values
 Each value ends with a closing parenthesis, is followed by statements, and ends with two semicolons
 Wildcards can also be used, so *) matches everything
 Pipes can be used for OR, so start|START) matches either casing
+
+Logging
+The syslog standard uses facility codes and severity levels
+Facilities: kern, user, mail, daemon, auth, local0-local7
+For example, the kern facility is used for scripts in the kernel, the mail facility is used for scripts that have to do with sending or receiving mails.
+If you are unsure which facility to use, you can use the user facility. The local0 through local7 facilities are custom facilities that can also be used for this purpose.
+Severities levels from most to least severe: emerg, alert, crit, err, warning, notice, info, debug
+Usually, messages are logged to a file. The file is configurable and changes per distribution.
+Often used files are:
+/var/log/messages
+/var/log/syslog
+The logger command can be used to log messages. By default it uses local0.info
+My logging didn't work at first. I installed rsyslog (Check google for how to) and then ran this:
+sudo /etc/init.d/rsyslog stop
+sudo /etc/init.d/rsyslog start
+Afterwards, it worked. Also, the files to log into can be configured by editing /etc/rsyslog.d/50-default.conf (Don't forget to restart rsyslog again once you've made a change)
