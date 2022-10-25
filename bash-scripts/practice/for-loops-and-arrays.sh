@@ -1,6 +1,6 @@
 #!/bin/bash
 
-for varName in "Haha" "Bananen"
+for varName in "Haha Bananen" "Haha"
 do
     echo "The var is $varName"
 done

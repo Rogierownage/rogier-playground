@@ -120,3 +120,9 @@ There are also predefined named character classes which can be used:
 [[:space:]] - Matches whitespace
 [[:upper:]] - Matches uppercase letters [A-Z]
 If you want to match a character literally, use backslashes to escape it.
+
+Case statements
+Case statements allow you to check a variable against multiple values
+Each value ends with a closing parenthesis, is followed by statements, and ends with two semicolons
+Wildcards can also be used, so *) matches everything
+Pipes can be used for OR, so start|START) matches either casing
