@@ -5,13 +5,11 @@ use League\Csv\Reader;
 
 dump('start');
 
-//load the CSV document from a file path
-$csv = Reader::createFromPath(storage_path('Vendr_translations_20220314.csv'), 'r');
+$csv = Reader::createFromPath(storage_path('Vendr_translations_20221027.csv'), 'r');
 $csv->setDelimiter(';');
 $csv->setHeaderOffset(0);
 
-$header = $csv->getHeader(); //returns the CSV header record
-$records = $csv->getRecords(); //returns all the CSV records as an Iterator object
+$records = $csv->getRecords();
 
 foreach ($records as $record) {
     $dutch = Translation::where('namespace', $record['Namespace'])->where('group', $record['Groep'])->where('name', $record['Naam'])->where('locale', 'nl')->firstOrFail();
@@ -25,4 +23,3 @@ foreach ($records as $record) {
 }
 
 dump('done');
-exit();
