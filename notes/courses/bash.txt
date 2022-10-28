@@ -142,3 +142,6 @@ My logging didn't work at first. I installed rsyslog (Check google for how to) a
 sudo /etc/init.d/rsyslog stop
 sudo /etc/init.d/rsyslog start
 Afterwards, it worked. Also, the files to log into can be configured by editing /etc/rsyslog.d/50-default.conf (Don't forget to restart rsyslog again once you've made a change)
+The -p option can be used to specify the facility and severity.
+The -t option can be used to specify a tag, which gets prefixed to the log message. The default is the current user name.
+The -i option can be used to log the PID of the process.
