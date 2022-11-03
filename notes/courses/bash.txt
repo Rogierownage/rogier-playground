@@ -50,6 +50,10 @@ arg1 -ge arg2
 For loops:
 Perform an action for a list of items
 
+While loops:
+Perform an action while the condition is true
+When using while loops with a read command as the condition, you can pass a file path with a caret after the done statement. done < path
+
 Arrays:
 Define arrays like this:
 varName=(1 2 3 "Test")
@@ -137,7 +141,7 @@ Usually, messages are logged to a file. The file is configurable and changes per
 Often used files are:
 /var/log/messages
 /var/log/syslog
-The logger command can be used to log messages. By default it uses local0.info
+The logger command can be used to log messages. By default it uses user.notice
 My logging didn't work at first. I installed rsyslog (Check google for how to) and then ran this:
 sudo /etc/init.d/rsyslog stop
 sudo /etc/init.d/rsyslog start
