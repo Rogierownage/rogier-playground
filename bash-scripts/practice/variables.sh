@@ -29,3 +29,8 @@ echo "You are running this script on $variableThree"
 variableThree=$(hostname)
 
 echo "You are running this script on $variableThree"
+
+variableFour="Your current directory is $(basename "$PWD")!"
+
+echo "$variableFour"
+echo Your current directory is "$(basename "$PWD")"!
