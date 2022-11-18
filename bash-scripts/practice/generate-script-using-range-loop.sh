@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fileName="./generated-scripts/echo-positional-parameters.sh"
+fileName="./generated-files/echo-positional-parameters.sh"
 
 rm $fileName
 touch $fileName

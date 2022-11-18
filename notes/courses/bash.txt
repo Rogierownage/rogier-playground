@@ -164,3 +164,17 @@ The -v option (Verbose) outputs the commands before expansions have occured.
 These options can be combined like -ex or -x -e or -x +e
 
 You can use cat -v to display non-printable characters like carriage returns
+Or the file command
+You can remove them with the dos2unix utility
+
+Streams / sed
+A stream is data that travels between processes, files, or devices. Standard input, output, and error are all streams. Pipe redirection uses streams.
+The sed command stands for Stream Editor, and performs text transformations on streams, programmaticaly. It can be used for search-replace. For example, sed 's/apple/orange' ./fruits.txt
+Replaces "apple" with "orange" in the text contained in ./fruits.txt
+However this example does not alter the file itself. It just outputs the result. To alter the input file, use the -i flag.
+The full syntax of the sed s expression is: sed 's/search-pattern/replacement/flags'
+Flags can be empty. An example flag is i for case-insensitive. The search pattern is a regex.
+The second parameter is usually a filename. This causes sed to use that file as its input.
+If the second parameter is - or is omitted, stdin is used as the input. This allows you to use | or <
+The -e flag can be used to specify the expression as a string, although this is default behavior if ommitted.
+The -f flag can be used to specify the expression from a file.
