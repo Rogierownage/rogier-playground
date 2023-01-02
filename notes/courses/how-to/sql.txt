@@ -1,0 +1,35 @@
+SUBSTRING can be used to get a part of a string. The second parameter is the starting position, and the third parameter is the length.
+Example: SUBSTRING('Hello', 1, 3) // Hel
+If the third parameter is omitted, the entire rest of the string is returned.
+If the second parameter is negative, it starts counting from the end of the string. Then it moves forwards as normal.
+
+CONCAT can be used to concatenate multiple strings together. Use commas between each string.
+
+REPLACE can be used to do a search-replace in a string. The second parameter is the value to search for, and the third parameter is the value to replace it with.
+
+REVERSE will simply reverse a string, putting it in the reverse order.
+
+CHAR_LENGTH will return the length of a string.
+LENGTH will return the length in bytes.
+
+UPPER (or UCASE) will make a string uppercase
+LOWER (or LCASE) will make a string lowercase
+
+INSERT will add a string inside another string.
+The first parameter is the original string.
+The second parameter is the position to start adding from.
+The third parameter is how many characters to remove. 0 to remove nothing. -1 to remove everything.
+The fourth parameter is the string to insert into it.
+For example, INSERT('Hello there', 7, 2, 'wh') returns 'Hello where'
+
+LEFT returns the left-most part of a string. The second parameter is how many characters.
+RIGHT returns the right-most part of a string.
+
+REPEAT takes a string and repeats it a number of times. The second parameter is how many times to repeat it.
+Note: "Repeating" 1 time is equal to just keeping the original string.
+
+TRIM removes a specific character from the beginning/end/both of a string. The default is the space character.
+This has pretty weird syntax. Some examples:
+TRIM(LEADING 'x' from name)
+TRIM(BOTH '    ' from email)
+TRIM(TRAILING '-' from zipcode)

@@ -1,0 +1,17 @@
+Bash
+Bash Scripting and Shell Programming Course Linux Command Line
+https://paqt.udemy.com/course/bash-scripting/
+
+Git & Github
+The Git & Github Bootcamp
+https://paqt.udemy.com/course/git-and-github-bootcamp
+
+Docker
+Docker for the Absolute Beginner - Hands On – DevOps
+https://paqt.udemy.com/course/learn-docker
+Docker and Kubernetes: The Complete Guide
+https://paqt.udemy.com/course/docker-and-kubernetes-the-complete-guide/
+
+(My)SQL
+Build MySQL Databases Bootcamp (Beginner to Expert Course)
+https://paqt.udemy.com/course/the-ultimate-mysql-bootcamp-go-from-sql-beginner-to-expert/

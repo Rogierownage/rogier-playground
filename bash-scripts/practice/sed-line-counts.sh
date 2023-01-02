@@ -18,7 +18,7 @@ echo
 sed 's/love/like/2' ./generated-files/bananas.txt
 
 echo
-# Places the output in the file bananas-like.txt
+# Takes only the affected lines and puts that output in the file bananas-like.txt
 sed 's/love/like/gw ./generated-files/bananas-like.txt' ./generated-files/bananas.txt
 echo
 cat ./generated-files/bananas-like.txt

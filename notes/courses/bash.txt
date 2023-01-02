@@ -172,9 +172,13 @@ A stream is data that travels between processes, files, or devices. Standard inp
 The sed command stands for Stream Editor, and performs text transformations on streams, programmaticaly. It can be used for search-replace. For example, sed 's/apple/orange' ./fruits.txt
 Replaces "apple" with "orange" in the text contained in ./fruits.txt
 However this example does not alter the file itself. It just outputs the result. To alter the input file, use the -i flag.
+You can also put some text directly after the -i flag, to put the content of the file into a backup file beforehand.
 The full syntax of the sed s expression is: sed 's/search-pattern/replacement/flags'
 Flags can be empty. An example flag is i for case-insensitive. The search pattern is a regex.
 The second parameter is usually a filename. This causes sed to use that file as its input.
 If the second parameter is - or is omitted, stdin is used as the input. This allows you to use | or <
 The -e flag can be used to specify the expression as a string, although this is default behavior if ommitted.
 The -f flag can be used to specify the expression from a file.
+The g flag is used to match every occurence on each line. Using a number as a flag matches only the n-th occurence on each line.
+You can also remove matching lines. This is done with sed '/pattern/d' file.txt
+You can put multiple codes into one sed command using semicolons. Or you can use the -e argument multiple times.
