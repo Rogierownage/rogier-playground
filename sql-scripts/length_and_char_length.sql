@@ -1,0 +1,1 @@
+select 'これはペンです' , LENGTH('これはペンです'), CHAR_LENGTH('これはペンです'); -- Note that Japanese characters are not 1 byte.

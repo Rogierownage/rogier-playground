@@ -1,0 +1,1 @@
+select email, REVERSE(email) as reverse_email from users;

@@ -1,0 +1,1 @@
+select email, LENGTH(email) from users; -- Length in bytes
