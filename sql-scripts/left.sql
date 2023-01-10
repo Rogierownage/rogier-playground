@@ -1,0 +1,1 @@
+select email, LEFT(email, 10) from users;

@@ -17,7 +17,7 @@ LOWER (or LCASE) will make a string lowercase
 
 INSERT will add a string inside another string.
 The first parameter is the original string.
-The second parameter is the position to start adding from.
+The second parameter is the position to start adding from. I don't think this can be negative.
 The third parameter is how many characters to remove. 0 to remove nothing. -1 to remove everything.
 The fourth parameter is the string to insert into it.
 For example, select INSERT('Hello there', 7, 2, 'wh') returns 'Hello where'
