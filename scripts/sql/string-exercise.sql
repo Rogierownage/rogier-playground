@@ -1,0 +1,1 @@
+select name, created_at, CONCAT(name, ' was created in ', YEAR(created_at)) as sentence from users; -- Rogier van den Berg was created in 1994

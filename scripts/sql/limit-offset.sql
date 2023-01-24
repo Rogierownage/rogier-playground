@@ -1,0 +1,2 @@
+select * from users limit 10 offset 3; -- Skips the first 3 users and then takes 10 users. This takes 4-13. (Given that you start counting from 1, not 0)
+select * from users limit 3, 10; -- Does the same thing. Shorthand syntax.

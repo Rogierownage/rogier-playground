@@ -1,0 +1,2 @@
+select * from users where name like 'Way2%'; -- This does the same as: SELECT * FROM users where left(name, 4) = 'Way2';
+SELECT * FROM `users` where name like '%van%'; -- Searches for users that have 'van' in their name somewhere.
