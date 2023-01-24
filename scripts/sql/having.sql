@@ -1,0 +1,1 @@
+SELECT count(*), project_id FROM `buyer_teams` group by project_id having count(*) > 3 -- Count the buyer teams for the project_ids that have more than 3 buyer teams.

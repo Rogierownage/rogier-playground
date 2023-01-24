@@ -1,3 +1,10 @@
+WHERE can be used to filter the results of a query. Some possible operators are = > >= < <= <>
+LIKE can also be used. See the section for LIKE.
+Note that WHERE is not case-sensitive.
+
+AS can be used to create a alias for a result. For example you can do a CONCAT and then AS to name it something helpful.
+You can order by an alias, you can group by it, but you cannot use it in a WHERE.
+
 SUBSTRING can be used to get a part of a string. The second parameter is the starting position, and the third parameter is the length.
 Example: SUBSTRING('Hello', 1, 3) // Hel
 If the second parameter is negative, it starts counting from the end of the string. Then it moves forwards as normal.
@@ -50,4 +57,28 @@ This comes quite late in the query, after order by usually.
 You can also use OFFSET with LIMIT in order to skip the first n columns. You can not use OFFSET without LIMIT.
 Finally, there is a shorthand syntax for LIMIT OFFSET, where you give 2 numbers to limit. The first number will be the offset in this case.
 
-LIKE can be used instead of an equal sign in a where clause. This allows you to use percentage signs as wildcards. You can escape them with a backslash to search for an actual percentage sign.
+LIKE can be used instead of an equals sign in a WHERE clause. This allows you to use percentage signs as wildcards.
+You can also use underscores to mean "Exactly 1 character".
+You can escape these with backslashes.
+Note that '%' does not match NULL
+
+-----
+
+GROUP BY combines similar data into single rows. You can specify a column and it will form groups of rows where each group shares the value for that row. Then you can perform aggregate functions on each group, like COUNT of AVG.
+
+Aggregate functions are functions that operate on multiple rows at once.
+They are usually used with GROUP BY. But they can also be used without GROUP BY, and that will treat the entire result as 1 group.
+
+COUNT is an aggregate function that gives you a count of the number of rows that have a value for the given column.
+It does not count NULL values. But it does count 0 values.
+You can do COUNT(*) to count all the rows. This even counts rows with all values NULL.
+By adding distinct before the column, you can count distinct values. Note that you cannot add distinct before *
+
+MIN and MAX are self-explanatory. They find the lowest and highest values respectively in a group.
+
+HAVING is like WHERE but for aggregates.
+
+-----
+
+Subqueries are queries that are used within other queries. The subquery returns a value and then that value is used in the bigger query.
+The subquery must have only one resulting row, so usually you want to do an aggregate function without a GROUP BY.

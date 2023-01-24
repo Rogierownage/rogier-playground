@@ -1,2 +1,4 @@
 select * from users where name like 'Way2%'; -- This does the same as: SELECT * FROM users where left(name, 4) = 'Way2';
 SELECT * FROM `users` where name like '%van%'; -- Searches for users that have 'van' in their name somewhere.
+SELECT name, email from users where name like '_s%'; -- Searches for users that have 's' as the second character in their name.
+SELECT name, email from users where name like '%____________________%'; -- Searches for users that have at least 20 characters (The amount of underscores here) in their name. Ofcourse you should use a WHERE LENGTH (Or CHAR_LENGTH) instead for this.
