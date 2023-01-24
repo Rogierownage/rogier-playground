@@ -1,0 +1,2 @@
+To check server access logs: sudo ls -lha /var/log/nginx
+To restart a laravel queue: sudo supervisorctl restart live_vdkapp_queue_emails:live_vdkapp_queue_emails_00

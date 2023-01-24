@@ -12,3 +12,5 @@ select name, REPLACE(
         'u', 'y'),
     'e','y'),
 'o', 'y') as stupidity from users; -- This stupid query replaces all the vowels in the name with a 'y'.
+
+select REPLACE(email, '.', '.com.') from users;

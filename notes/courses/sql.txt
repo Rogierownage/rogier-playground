@@ -33,3 +33,21 @@ This has pretty weird syntax. Some examples:
 TRIM(LEADING 'x' from name)
 TRIM(BOTH '    ' from email)
 TRIM(TRAILING '-' from zipcode)
+
+DISTINCT can be used to remove duplicate columns. It comes right after the SELECT keyword.
+It takes all the fields that you select, and applies the uniqueness on the combination of all of them.
+For example, `select DISTINCT name, email from users` only removes records where both the `name` and `email` are the same. 
+Note that DISTINCT is not a function. It can be used with parenthesis, but this is undocumented and confusing syntax, even though it sometimes will work.
+
+ORDER BY is used to sort the results by one or more columns.
+ASC or DESC can be put after the column to set the order.
+A number can be given instead of a column. This sorts by the column that comes n-th in the results, but this is not recommended.
+You can also order by an alias. (When you do select x as y)
+If you give multiple columns (Each with their own order, optionally), it will nest the sorting. If you give two columns for example, it will sort by the first column, and then within that, it sorts by the second column. The earliest takes the most priority.
+
+LIMIT n will limit the number of results to n rows. This is most useful when combined with sorting.
+This comes quite late in the query, after order by usually.
+You can also use OFFSET with LIMIT in order to skip the first n columns. You can not use OFFSET without LIMIT.
+Finally, there is a shorthand syntax for LIMIT OFFSET, where you give 2 numbers to limit. The first number will be the offset in this case.
+
+LIKE can be used instead of an equal sign in a where clause. This allows you to use percentage signs as wildcards. You can escape them with a backslash to search for an actual percentage sign.
