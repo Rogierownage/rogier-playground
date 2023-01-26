@@ -65,6 +65,7 @@ Note that '%' does not match NULL
 -----
 
 GROUP BY combines similar data into single rows. You can specify a column and it will form groups of rows where each group shares the value for that row. Then you can perform aggregate functions on each group, like COUNT of AVG.
+You can group by multiple columns. This is similar to a distinct query on multiple columns. It will make groups where all those columns are the same.
 
 Aggregate functions are functions that operate on multiple rows at once.
 They are usually used with GROUP BY. But they can also be used without GROUP BY, and that will treat the entire result as 1 group.
