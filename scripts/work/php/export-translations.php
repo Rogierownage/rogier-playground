@@ -13,6 +13,9 @@ use Modules\Way2Translate\Models\Translation;
 // - For "File origin" select "65001 Unicode (UTF-8)"
 // - Click "Load" and save as a new file. Now this file should work.
 
+// To use this script, first make sure all the translations from the accept/live environment are in your local database.
+// Then copy-paste this to Web tinker and run it. The result file will be in storage/app/export.csv
+
 $result = [];
 $allDutch = Translation::where('locale', 'nl')->get();
 
