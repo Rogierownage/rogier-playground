@@ -3,6 +3,8 @@
 use Modules\Way2Translate\Models\Translation;
 use League\Csv\Reader;
 
+// Note: You have to install league/csv via composer before running this script.
+
 dump('start');
 
 $csv = Reader::createFromPath(storage_path('Vendr_translations_20221027.csv'), 'r');
