@@ -1,5 +1,7 @@
 <?php
 
+// WARNING: This script does not encode everything correctly. For example euro characters get messed up.
+
 use League\Csv\Writer;
 use Modules\Way2Translate\Models\Translation;
 
