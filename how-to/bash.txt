@@ -1,2 +1,19 @@
 To check server access logs: sudo ls -lha /var/log/nginx
 To restart a laravel queue: sudo supervisorctl restart live_vdkapp_queue_emails:live_vdkapp_queue_emails_00
+
+To empty the server cache for Venapp so that the buildhook doesn't run out of memory, hopefully. (It may help to do this after each step in the deploy)
+(As root):
+```
+sudo sh -c "sync; echo 3 > /proc/sys/vm/drop_caches"
+sudo sh -c "sync; echo 2 > /proc/sys/vm/drop_caches"
+sudo sh -c "sync; echo 1 > /proc/sys/vm/drop_caches"
+```
+You can also try stopping the queues. Don't worry, these will be restarted automatically after the deploy succeeds.
+(As root): 
+sudo supervisorctl stop <queue-name>
+For accept, this is done like this:
+```
+sudo supervisorctl stop accept_venapp_queue_dataroom_archive:accept_venapp_queue_dataroom_archive_00
+sudo supervisorctl stop accept_venapp_queue_emails:accept_venapp_queue_emails_00
+sudo supervisorctl stop accept_venapp_queue_images:accept_venapp_queue_images_00
+```
