@@ -1,6 +1,6 @@
-function TestFunction() {
+function TestFunction(props) {
   return (
-      <p>Test (function)</p>
+      <p>Test (function, {props.name})</p>
   );
 }
 
