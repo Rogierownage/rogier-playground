@@ -1,0 +1,2 @@
+.env values can be changed in the project's repo itself. In .hosting/environments/
+The exception to this is secrets (Secret values like DB passwords). I don't currently know how this is done, but i'll ask Team Tech to do it whenever needed.
