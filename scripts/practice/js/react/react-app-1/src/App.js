@@ -20,7 +20,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <header className="App-header">
-          <p>Hello {this.state.users[0]?.name?.first ?? '(Loading)'}</p>
+          <p>Hello {this.state.users[0] ? this.state.users[0].name.first : '(Loading)'}</p>
           <TestFunction name="Hallo1"/>
           <TestClass name="Hallo2"/>
         </header>
