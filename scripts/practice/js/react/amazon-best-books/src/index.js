@@ -1,6 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import 'css/index.css';
+import './css/index.css';
+
+const firstBook = {
+    title: 'Young Forever: The Secrets to Living Your Longest, Healthiest Life',
+    author: 'Dr. Mark Hyman MD',
+    imageUrl: 'https://images-na.ssl-images-amazon.com/images/I/81dL13NFc3L._AC_UL600_SR600,400_.jpg',
+};
 
 function App() {
     return (
@@ -11,11 +17,11 @@ function App() {
 }
 
 const BookList = () => (
-    <section>
+    <section className="booklist">
         <Book
-            title='Young Forever: The Secrets to Living Your Longest, Healthiest Life'
-            author='Dr. Mark Hyman MD'
-            imageUrl='https://images-na.ssl-images-amazon.com/images/I/81dL13NFc3L._AC_UL600_SR600,400_.jpg'
+            title={firstBook.title}
+            author={firstBook.author}
+            imageUrl={firstBook.imageUrl}
         />
         <Book
             title='Things We Hide from the Light(Knockemout Series, 2)'
@@ -25,30 +31,24 @@ const BookList = () => (
         <Book 
             title='Atomic Habits: An Easy & Proven Way to Build Good Habits & Break Bad Ones'
             author='James Clear'
-            imageUrl='https://images-na.ssl-images-amazon.com/images/I/81bGKUa1e0L._AC_UL600_SR600,400_.jpg'
+            imageUrl='./images/atomic-habits.jpg'
+            style={{ color: 'gray' }}
         />
     </section>
 );
 
-const Book = (props) => (
-    <article>
-        <Image url={props.imageUrl}/>
-        <Title title={props.title}/>
-        <Author name={props.author}/>
-    </article>
-)
+const Book = (props) => {
+    const style = { color: '#a9a9a9' };
+    const titlePrefix = 'Title:';
 
-const Image = (props) => (
-    <img alt='' src={props.url}/>
-);
-
-const Title = (props) => (
-    <h2>{props.title}</h2>
-);
-
-const Author = (props) => (
-    <p>By {props.name}</p>
-);
+    return (
+        <article className="book" style={props.style ?? style}>
+            <img alt='' src={props.imageUrl} />
+            <h2>{titlePrefix} {props.title}</h2>
+            <p style={{ color: '#617d98', fontSize: '0.75rem', marginTop: '0.5rem' }}>By {props.author}</p>
+        </article>
+    );
+};
 
 ReactDOM.createRoot(document.getElementById('root')).render((
     <App />
