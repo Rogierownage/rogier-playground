@@ -1,4 +1,4 @@
 .env values can be changed in the project's repo itself. In .hosting/environments/
-The exception to this is secrets (Secret values like DB passwords). I don't currently know how this is done, but i'll ask Team Tech to do it whenever needed.
+The exception to this is secrets (Secret values like DB passwords). These can be managed via the kubernetes dashboard. Secrets -> <php fpm for that env> -> edit
 
-To see errors for a project in elastic search: (Example venapp): `kubernetes.namespace: venapp and kubernetes.node.labels.node_paqt_com/environment: accept and log.level: ERROR`
+To see errors for a project in elastic search Kibana: (Example venapp): `kubernetes.namespace: venapp and kubernetes.node.labels.node_paqt_com/environment: accept and log.level: ERROR`

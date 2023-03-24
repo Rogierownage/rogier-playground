@@ -387,6 +387,22 @@ prepush() {
     ./.git/pre-push.sh
 }
 
+kubedash() {
+    kubectl auth-proxy -n cyso-system https://paqt-dashboard-kubernetes-dashboard.svc
+}
+
+kubedashacc() {
+    kubectl config use-context openid-shared.kubernetes.accept.cyso.paqt.network
+
+    kubedash
+}
+
+kubedashprod() {
+    kubectl config use-context openid-shared.kubernetes.production.cyso.paqt.network
+    
+    kubedash
+}
+
 ### Add composer to path
 export PATH="$PATH:$HOME/.composer/vendor/bin" # load composer
 
