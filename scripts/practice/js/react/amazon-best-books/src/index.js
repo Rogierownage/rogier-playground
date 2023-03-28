@@ -10,9 +10,20 @@ function App() {
     );
 }
 
+const Button = ({text, onClick}) => (
+    <button onClick={onClick}>{text}</button>
+);
+
 const BookList = () => (
     <section className="booklist">
-        {books}
+        {books.map((book) => (
+            <Book
+                {...book}
+                key={book.title}
+            >
+                {book.hasButton ? <Button text="Add to cart" onClick={() => alert('Added: ' + book.title)} /> : null}
+            </Book>
+        ))}
     </section>
 );
 
@@ -47,17 +58,7 @@ const books = [
         imageUrl: './images/atomic-habits.jpg',
         style: { color: 'gray' }
     }
-].map((book) => (
-    <Book
-        title={book.title}
-        author={book.author}
-        imageUrl={book.imageUrl}
-        style={book.style ?? null}
-        key={book.title}
-    >
-        {book.hasButton ? <button>Add to cart</button> : ''}
-    </Book>
-));
+];
 
 ReactDOM.createRoot(document.getElementById('root')).render((
     <App />

@@ -1,0 +1,10 @@
+You can do prop drilling (Where components pass props through multiple layers) in a convenient way.
+Put the props you need in the current layer in their own variables via deconstructing, and then put the rest into a props variable. Then pass that props variable to the next component.
+```
+const Book = ({style, imageUrl, children, ...props}) => {
+    // ...
+    <Article {...props} />
+}
+```
+
+In react, you can add a click event by putting `onClick={<your callback>}` on something. For example `onClick={() => alert('clicked')}` or `onClick={callbackVariable}`

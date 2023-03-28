@@ -1,8 +1,0 @@
-In react, you can do prop drilling (Where components pass props through multiple layers) in a convenient way.
-Put the props you need in this layer, in their own variables via deconstructing, and then put the rest into a props variable. Then pass that props variable to the next component.
-```
-const Book = ({style, imageUrl, children, ...props}) => {
-    // ...
-    <Article {...props} />
-}
-```
