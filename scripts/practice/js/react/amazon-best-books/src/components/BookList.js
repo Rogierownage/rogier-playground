@@ -8,30 +8,34 @@ const BookList = () => {
     };
 
     return (
-        <section className="booklist">
-            {books.map((book, index) => (
-                <Book
-                    {...book}
-                    key={book.title}
-                    getBook={getBook}
-                    sequence={index + 1}
-                >
-                    {book.hasButton ? (
-                        <div>
-                            <Button text="Add to cart" onClick={() => alert('Added: ' + book.title)} />
-                            <form onSubmit={(e) => {
-                                e.preventDefault();
+        <>
+            <h1>Amazon best books</h1>
+            
+            <section className="booklist">
+                {books.map((book, index) => (
+                    <Book
+                        {...book}
+                        key={book.title}
+                        getBook={getBook}
+                        sequence={index + 1}
+                    >
+                        {book.hasButton ? (
+                            <div>
+                                <Button text="Add to cart" onClick={() => alert('Added: ' + book.title)} />
+                                <form onSubmit={(e) => {
+                                    e.preventDefault();
 
-                                alert('submit');
-                            }}>
-                                <input onChange={(e) => console.log([e.target.name, e.target.value])} type="text" name="title"></input>
-                                <button type="submit">Submit</button>
-                            </form>
-                        </div>
-                    ) : null}
-                </Book>
-            ))}
-        </section>
+                                    alert('submit');
+                                }}>
+                                    <input onChange={(e) => console.log([e.target.name, e.target.value])} type="text" name="title"></input>
+                                    <button type="submit">Submit</button>
+                                </form>
+                            </div>
+                        ) : null}
+                    </Book>
+                ))}
+            </section>
+        </>
     )
 };
 
