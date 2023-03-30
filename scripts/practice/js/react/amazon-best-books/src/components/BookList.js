@@ -9,11 +9,12 @@ const BookList = () => {
 
     return (
         <section className="booklist">
-            {books.map((book) => (
+            {books.map((book, index) => (
                 <Book
                     {...book}
                     key={book.title}
                     getBook={getBook}
+                    sequence={index + 1}
                 >
                     {book.hasButton ? (
                         <div>
