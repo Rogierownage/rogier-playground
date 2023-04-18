@@ -1,3 +1,4 @@
+import Service from "./Service";
 import Title from "./Title";
 
 const servicesData = [
@@ -18,22 +19,16 @@ const servicesData = [
     },
 ];
 
-const Services = () => (
+const ServiceList = () => (
     <section className="section services" id="services">
         <Title titleFirst="Our" titleSecond="services" />
 
         <div className="section-center services-center">
             {servicesData.map((service) => (
-                <article key="service.title" className="service">
-                    <span className="service-icon"><i className={'fas ' + service.icon + ' fa-fw'}></i></span>
-                    <div className="service-info">
-                        <h4 className="service-title">{service.title}</h4>
-                        <p className="service-text">{service.text}</p>
-                    </div>
-                </article>
+                <Service key={service.title} icon={service.icon} title={service.title} text={service.text} />
             ))}
         </div>
     </section>
 );
 
-export default Services;
+export default ServiceList;
