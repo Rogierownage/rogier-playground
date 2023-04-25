@@ -8,7 +8,7 @@ const UseStateBasics = ({ startingCount }) => {
     <React.Fragment>
       <h2>{count}</h2>
 
-      <button onClick={() => setCount(count + 1)}>Increment</button>
+      <button type="button" className="btn" onClick={() => setCount(count + 1)}>Increment</button>
     </React.Fragment>
   );
 };
