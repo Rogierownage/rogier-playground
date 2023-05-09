@@ -2,3 +2,16 @@
 The exception to this is secrets (Secret values like DB passwords). These can be managed via the kubernetes dashboard. Secrets -> <php fpm for that env> -> edit
 
 To see errors for a project in elastic search Kibana: (Example venapp): `kubernetes.namespace: venapp and kubernetes.node.labels.node_paqt_com/environment: accept and log.level: ERROR`
+
+To migrate a project to kubernetes (devops tasks only):
+- Copy-paste the .github and .hosting directory (And change the project name to the correct one)
+- Check if the environments in the deploy scripts match what you want
+- Set the environment values. General values (which are the same everywhere) go in .hosting/environments/values.yaml , environment-specific ones go in .hosting/environments/<ENV>>/values.yaml , and secrets are set via .hosting/environments/variables.yaml.template
+- Set the environments and services in the hosting repository. Example: https://github.com/paqtcom/hosting/blob/master/inventory/projects/venapp/applications.json
+
+If there is a stage environment:
+- Move imagePullSecrets from values.yaml to variables.yaml.template
+- Define utilities.secrets.name in variables.yaml.template to be different based on the environment
+
+If the deploy helm chart step has a timeout:
+- Increase the timeout in deployment.yaml

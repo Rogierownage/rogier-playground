@@ -35,32 +35,32 @@ hgstory() {
     fi
 }
 
-# Run the docker-compose command from any directory.
-#
-# This accepts an argument as the second parameter.
-# If a project directory is given as the second parameter, instead it navigates to that directory.
+# Run the docker-compose command inside the dockerhero directory, and then return to the directory you were in.
 dockercd() {
     command=$1
     arguments=$2
-    directory=""
-    
-    targetDirectory="/home/developer/projects/$2"
-    
-    if [ "$2" ] && [ -d "$targetDirectory" ]; then
-        arguments=""
-        directory=$targetDirectory
-    fi
     
     initialDirectory=$PWD
-    cd /home/developer/projects/dockerhero || exit
+    
+    cd /home/developer/projects/dockerhero
     
     docker-compose $command $arguments
     
-    if [ "$directory" ]; then
-        cd $directory || exit
-    else
-        cd $initialDirectory || exit
-    fi
+    cd $directory
+}
+
+# Run the make command inside the workspace directory, and then return to the directory you were in.
+kubecd() {
+    command=$1
+    arguments=$2
+    
+    initialDirectory=$PWD
+    
+    cd /home/developer/projects/workspace
+    
+    make $command $arguments
+    
+    cd $initialDirectory
 }
 
 # Kill docker containers and then start everything up again, asynchronously.
@@ -78,6 +78,25 @@ dockerphpversion() {
     dockerreboot
 }
 
+# Stop dockerhero and then start the workspace for the local kubernetes environment.
+#
+# If a parameter is given, it will navigate to that project and run docker-compose start to get it running right away.
+dockertokube() {
+    dockercd stop
+    kubecd start
+    
+    if [ "$1" ]; then
+        cd ~/projects/$1
+        
+        docker-compose start
+    fi
+}
+
+# Stop the workspace for the local kubernetes environment and then start dockerhero.
+kubetodocker() {
+    workcd stop
+    dockercd start
+}
 
 # Clone the given Mercurial repository from Bitbucket.
 hgclone() {
