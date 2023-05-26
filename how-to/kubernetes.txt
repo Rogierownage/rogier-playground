@@ -1,5 +1,5 @@
 .env values can be changed in the project's repo itself. In .hosting/environments/
-The exception to this is secrets (Secret values like DB passwords). These can be managed via the kubernetes dashboard. Secrets -> <php fpm for that env> -> edit
+The exception to this is secrets (Secret values like DB passwords). These can be viewed via the kubernetes dashboard.
 
 To see errors for a project in elastic search Kibana: (Example venapp): `kubernetes.namespace: venapp and kubernetes.node.labels.node_paqt_com/environment: accept and log.level: ERROR`
 
@@ -13,5 +13,16 @@ If there is a stage environment:
 - Move imagePullSecrets from values.yaml to variables.yaml.template
 - Define utilities.secrets.name in variables.yaml.template to be different based on the environment
 
-If the deploy helm chart step has a timeout:
-- Increase the timeout in deployment.yaml
+If the deploy helm chart step has a timeout, you can increase the timeout in deployment.yaml
+
+Laravel queue workers are defined in values.yaml
+
+To get the basic auth credentials: (kycapp as example)
+First, make sure your context is correct. 
+- kubectl config get-contexts
+- kubectl config use-context openid-shared.kubernetes.accept.cyso.paqt.network
+Then get the secrets and decode.
+- kubectl get secret --namespace=kycapp basic-authentication -o jsonpath='{.data.username}' | base64 --decode; echo
+- kubectl get secret --namespace=kycapp basic-authentication -o jsonpath='{.data.password}' | base64 --decode; echo
+
+Make sure that `config('constants.general.domain')` has a default value of 'localhost' or the deploy will fail.

@@ -46,7 +46,7 @@ dockercd() {
     
     docker-compose $command $arguments
     
-    cd $directory
+    cd $initialDirectory
 }
 
 # Run the make command inside the workspace directory, and then return to the directory you were in.
@@ -94,7 +94,7 @@ dockertokube() {
 
 # Stop the workspace for the local kubernetes environment and then start dockerhero.
 kubetodocker() {
-    workcd stop
+    kubecd stop
     dockercd start
 }
 

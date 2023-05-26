@@ -2,6 +2,7 @@ import { Fragment, useEffect, useState } from "react";
 
 const FetchData = () => {
   const [users, setUsers] = useState([]);
+
   useEffect(() => {
     (async () => {
       const response = await fetch('https://api.github.com/users');
