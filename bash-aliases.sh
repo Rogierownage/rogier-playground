@@ -88,7 +88,7 @@ dockertokube() {
     if [ "$1" ]; then
         cd ~/projects/$1
         
-        docker-compose start
+        docker-compose up -d
     fi
 }
 
