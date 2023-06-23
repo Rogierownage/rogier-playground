@@ -88,7 +88,7 @@ dockertokube() {
     if [ "$1" ]; then
         cd ~/projects/$1
         
-        docker-compose up -d
+        docker-compose up
     fi
 }
 
@@ -96,6 +96,14 @@ dockertokube() {
 kubetodocker() {
     kubecd stop
     dockercd start
+}
+
+sshkube() {
+    if [ "$1" ]; then
+        cd ~/projects/$1
+    fi
+    
+    docker compose exec -it local-php-fpm sh
 }
 
 # Clone the given Mercurial repository from Bitbucket.
