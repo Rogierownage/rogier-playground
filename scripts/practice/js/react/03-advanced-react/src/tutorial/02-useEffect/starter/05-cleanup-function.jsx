@@ -11,11 +11,26 @@ const CleanupFunction = () => {
 
 const SecondComponent = () => {
   let [name, setName] = useState(null);
+  const  clickHandler = () => console.log('event listener');
+
+  console.log('inside component code');
 
   useEffect(() => {
-    setName('Banana');
-
     console.log('useEffect in second component. Triggers after unmount and remount');
+    const interval = setInterval(() => {
+      console.log('useEffect in second component, in interval.  ');
+
+    }, 1000)
+
+    window.addEventListener('click', clickHandler);
+
+    return () => {
+      clearInterval(interval);
+
+      window.removeEventListener('click', clickHandler);
+
+      console.log('cleanup function in second component');
+    }
   }, [])
 
   return <>

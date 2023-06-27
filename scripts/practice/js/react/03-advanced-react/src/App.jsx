@@ -15,6 +15,9 @@ import S0304 from './tutorial/03-conditional-rendering/starter/04-short-circuit-
 import S0305 from './tutorial/03-conditional-rendering/starter/05-short-circuit-examples';
 import S0306 from './tutorial/03-conditional-rendering/starter/06-toggle-challenge';
 import S0307 from './tutorial/03-conditional-rendering/starter/07-user-challenge';
+import S0401 from './tutorial/04-project-structure/starter/Navbar';
+import { Home as S0402, About as S0403 } from './tutorial/04-project-structure/starter/Pages';
+import S0404 from './tutorial/04-project-structure/starter/Example';
 import S0601 from './tutorial/06-forms/starter/01-controlled-inputs';
 import S0602 from './tutorial/06-forms/starter/02-user-challenge';
 import S0603 from './tutorial/06-forms/starter/03-multiple-inputs';
@@ -34,6 +37,7 @@ function App() {
     ['S0101', 'S0102', 'S0103', 'S0104', 'S0105'],
     ['S0201', 'S0202', 'S0203', 'S0204', 'S0205'],
     ['S0301', 'S0302', 'S0303', 'S0304', 'S0305', 'S0306', 'S0307'],
+    ['S0401', 'S0402', 'S0403', 'S0404'],
     ['S0601', 'S0602', 'S0603', 'S0604', 'S0605'],
     ['S0701'],
     ['S0801','S0802'],
@@ -59,135 +63,155 @@ function App() {
       }
 
       {isActive('S0101') && ( 
-        <React.Fragment >
+        <>
           <S0101 />
-        </React.Fragment>
+        </>
       )}
       {isActive('S0102') && ( 
-        <React.Fragment >
+        <>
           <S0102 startingCount={15} />
           <S0102 />
-        </React.Fragment>
+        </>
       )}
       {isActive('S0103') && (
-        <React.Fragment >
+        <>
           <S0103 />
-        </React.Fragment>
+        </>
       )}
       {isActive('S0104') && (
-        <React.Fragment >
+        <>
           <S0104 />
-        </React.Fragment>
+        </>
       )}
       {isActive('S0105') && (
-        <React.Fragment >
+        <>
           <S0105 />
-        </React.Fragment>
+        </>
       )}
       {isActive('S0201') && (
-        <React.Fragment >
+        <>
           <S0201 />
-        </React.Fragment>
+        </>
       )}
       {isActive('S0202') && (
-        <React.Fragment >
+        <>
           <S0202 />
-        </React.Fragment>
+        </>
       )}
       {isActive('S0203') && (
-        <React.Fragment >
+        <>
           <S0203 />
-        </React.Fragment>
+        </>
       )}
       {isActive('S0204') && (
-        <React.Fragment >
+        <>
           <S0204 />
-        </React.Fragment>
+        </>
       )}
       {isActive('S0205') && (
-        <React.Fragment >
+        <>
           <S0205 />
-        </React.Fragment>
+        </>
       )}
       {isActive('S0301') && (
-        <React.Fragment >
+        <>
           <S0301 />
-        </React.Fragment>
+        </>
       )}
       {isActive('S0302') && (
-        <React.Fragment >
+        <>
           <S0302 />
-        </React.Fragment>
+        </>
       )}
       {isActive('S0303') && (
-        <React.Fragment >
+        <>
           <S0303 />
-        </React.Fragment>
+        </>
       )}
       {isActive('S0304') && (
-        <React.Fragment >
+        <>
           <S0304 />
-        </React.Fragment>
+        </>
       )}
       {isActive('S0305') && (
-        <React.Fragment >
+        <>
           <S0305 />
-        </React.Fragment>
+        </>
       )}
       {isActive('S0306') && (
-        <React.Fragment >
+        <>
           <S0306 />
-        </React.Fragment>
+        </>
       )}
       {isActive('S0307') && (
-        <React.Fragment >
+        <>
           <S0307 />
-        </React.Fragment>
+        </>
+      )}
+      {isActive('S0401') && (
+        <>
+          <S0401 />
+        </>
+      )}
+      {isActive('S0402') && (
+        <>
+          <S0402 />
+        </>
+      )}
+      {isActive('S0403') && (
+        <>
+          <S0403 />
+        </>
+      )}
+      {isActive('S0404') && (
+        <>
+          <S0404 />
+        </>
       )}
       {isActive('S0601') && (
-        <React.Fragment >
+        <>
           <S0601 />
-        </React.Fragment>
+        </>
       )}
       {isActive('S0602') && (
-        <React.Fragment >
+        <>
           <S0602 />
-        </React.Fragment>
+        </>
       )}
       {isActive('S0603') && (
-        <React.Fragment >
+        <>
           <S0603 />
-        </React.Fragment>
+        </>
       )}
       {isActive('S0604') && (
-        <React.Fragment >
+        <>
           <S0604 />
-        </React.Fragment>
+        </>
       )}
       {isActive('S0605') && (
-        <React.Fragment >
+        <>
           <S0605 />
-        </React.Fragment>
+        </>
       )}
       {isActive('S0701') && (
-        <React.Fragment >
+        <>
           <S0701 />
-        </React.Fragment>
+        </>
       )}
       {isActive('S0801') && (
-        <React.Fragment >
+        <>
           <S0801 />
-        </React.Fragment>
+        </>
       )}
       {isActive('S0802') && (
-        <React.Fragment >
+        <>
           <S0802 />
-        </React.Fragment>
+        </>
       )}
       {isActive('S1001') && (
-        <React.Fragment >
+        <>
           <S1001 />
-        </React.Fragment>
+        </>
       )}
     </div>
   );
