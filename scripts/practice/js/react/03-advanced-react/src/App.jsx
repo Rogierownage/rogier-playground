@@ -18,6 +18,7 @@ import S0307 from './tutorial/03-conditional-rendering/starter/07-user-challenge
 import S0401 from './tutorial/04-project-structure/starter/Navbar';
 import { Home as S0402, About as S0403 } from './tutorial/04-project-structure/starter/Pages';
 import S0404 from './tutorial/04-project-structure/starter/Example';
+import S0501 from './tutorial/05-leverage-javascript/starter/People';
 import S0601 from './tutorial/06-forms/starter/01-controlled-inputs';
 import S0602 from './tutorial/06-forms/starter/02-user-challenge';
 import S0603 from './tutorial/06-forms/starter/03-multiple-inputs';
@@ -38,6 +39,7 @@ function App() {
     ['S0201', 'S0202', 'S0203', 'S0204', 'S0205'],
     ['S0301', 'S0302', 'S0303', 'S0304', 'S0305', 'S0306', 'S0307'],
     ['S0401', 'S0402', 'S0403', 'S0404'],
+    ['S0501'],
     ['S0601', 'S0602', 'S0603', 'S0604', 'S0605'],
     ['S0701'],
     ['S0801','S0802'],
@@ -166,6 +168,11 @@ function App() {
       {isActive('S0404') && (
         <>
           <S0404 />
+        </>
+      )}
+      {isActive('S0501') && (
+        <>
+          <S0501 />
         </>
       )}
       {isActive('S0601') && (
