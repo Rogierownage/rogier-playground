@@ -27,6 +27,7 @@ import S0605 from './tutorial/06-forms/starter/05-form-data';
 import S0701 from './tutorial/07-useRef/starter/01-useRef-basics';
 import S0801 from './tutorial/08-custom-hooks/starter/01-toggle';
 import S0802 from './tutorial/08-custom-hooks/starter/02-fetch-data';
+import S0901 from './tutorial/09-context-api/starter/01-challenge';
 import S1001 from './tutorial/10-useReducer/starter/01-useReducer';
 
 import React, { useState } from 'react';
@@ -43,6 +44,7 @@ function App() {
     ['S0601', 'S0602', 'S0603', 'S0604', 'S0605'],
     ['S0701'],
     ['S0801','S0802'],
+    ['S0901'],
     ['S1001'],
   ];
 
@@ -213,6 +215,11 @@ function App() {
       {isActive('S0802') && (
         <>
           <S0802 />
+        </>
+      )}
+      {isActive('S0901') && (
+        <>
+          <S0901 />
         </>
       )}
       {isActive('S1001') && (

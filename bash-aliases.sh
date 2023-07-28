@@ -387,11 +387,9 @@ kraken() {
 }
 
 # Starts Gitkraken and starts the dockerhero container.
-#
-# If an argument is given, it navigates to that project's directory.
 startup() {
     kraken
-    dockercd start "$1"
+    kubetodocker
 }
 
 updateGitKraken() {
