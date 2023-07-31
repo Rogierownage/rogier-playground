@@ -36,7 +36,7 @@ hgstory() {
 }
 
 # Run the docker-compose command inside the dockerhero directory, and then return to the directory you were in.
-dockercd() {
+herocd() {
     command=$1
     arguments=$2
     
@@ -63,26 +63,26 @@ kubecd() {
     cd $initialDirectory
 }
 
-# Kill docker containers and then start everything up again, asynchronously.
-dockerreboot() {
-    dockercd down
-    dockercd up --no-start
-    dockercd start
+# Kill dockerhero containers and then start everything up again, asynchronously.
+heroreboot() {
+    herocd down
+    herocd up --no-start
+    herocd start
 }
 
-# Set the php version in the docker-compose.override.yml file and then reboot docker.
-dockerphpversion() {
+# Set the php version in the docker-compose.override.yml file and then reboot dockerhero.
+herophpversion() {
     sed -i "s/dockerhero-php-[0-9.]*/dockerhero-php-$1/" /home/developer/projects/dockerhero/docker-compose.override.yml
     sed -i "s/dockerhero-workspace\:php[0-9.]*/dockerhero-workspace:php$1/" /home/developer/projects/dockerhero/docker-compose.override.yml
     
-    dockerreboot
+    heroreboot
 }
 
 # Stop dockerhero and then start the workspace for the local kubernetes environment.
 #
 # If a parameter is given, it will navigate to that project and run docker-compose start to get it running right away.
-dockertokube() {
-    dockercd stop
+herotokube() {
+    herocd stop
     kubecd start
     
     if [ "$1" ]; then
@@ -93,9 +93,9 @@ dockertokube() {
 }
 
 # Stop the workspace for the local kubernetes environment and then start dockerhero.
-kubetodocker() {
+kubetohero() {
     kubecd stop
-    dockercd start
+    herocd start
 }
 
 sshkube() {
@@ -314,7 +314,7 @@ startEverything() {
     slack &
     code &
     gitkraken &
-    dockercd start
+    herocd start
 
     xterm -hold -e 'source /home/developer/projects/rogier-playground/bash-aliases.sh; updateAndRemove' &
 	
@@ -389,7 +389,7 @@ kraken() {
 # Starts Gitkraken and starts the dockerhero container.
 startup() {
     kraken
-    kubetodocker
+    kubetohero
 }
 
 updateGitKraken() {
