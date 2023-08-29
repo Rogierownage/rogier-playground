@@ -1,8 +1,10 @@
-import { createContext } from "react"
+import { createContext, useContext } from "react"
 import NavLinks from "./NavLinks"
 import useUser from "./useUser";
 
-export const NavbarContext = createContext();
+const NavbarContext = createContext();
+
+export const useNavbarContext = () => useContext(NavbarContext);
 
 const Navbar = () => {
     const [user, logout] = useUser('Elwin');

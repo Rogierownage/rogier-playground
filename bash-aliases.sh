@@ -389,7 +389,7 @@ kraken() {
 # Starts Gitkraken and starts the dockerhero container.
 startup() {
     kraken
-    kubetohero
+    herocd start
 }
 
 updateGitKraken() {
