@@ -12,6 +12,8 @@ const reducer = (state, action) => {
       return {...state, people: []};
     case 'resetPeople': 
       return {...state, people: data};
+    default: 
+      return state;
   }
 };
 
