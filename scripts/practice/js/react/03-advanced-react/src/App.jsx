@@ -29,6 +29,10 @@ import S0801 from './tutorial/08-custom-hooks/starter/01-toggle';
 import S0802 from './tutorial/08-custom-hooks/starter/02-fetch-data';
 import S0901 from './tutorial/09-context-api/starter/01-challenge';
 import S1001 from './tutorial/10-useReducer/starter/01-useReducer';
+import S1101 from './tutorial/11-performance/starter/01-lower-state/index';
+import S1102 from './tutorial/11-performance/starter/02-lower-state-challenge/index';
+import S1103 from './tutorial/11-performance/starter/03-hooks/index';
+import S1104 from './tutorial/11-performance/starter/04-react-18/index';
 
 import React, { useState } from 'react';
 
@@ -46,6 +50,7 @@ function App() {
     ['S0801','S0802'],
     ['S0901'],
     ['S1001'],
+    ['S1101', 'S1102', 'S1103', 'S1104'],
   ];
 
   return (
@@ -225,6 +230,26 @@ function App() {
       {isActive('S1001') && (
         <>
           <S1001 />
+        </>
+      )}
+      {isActive('S1101') && (
+        <>
+          <S1101 />
+        </>
+      )}
+      {isActive('S1102') && (
+        <>
+          <S1102 />
+        </>
+      )}
+      {isActive('S1103') && (
+        <>
+          <S1103 />
+        </>
+      )}
+      {isActive('S1104') && (
+        <>
+          <S1104 />
         </>
       )}
     </div>

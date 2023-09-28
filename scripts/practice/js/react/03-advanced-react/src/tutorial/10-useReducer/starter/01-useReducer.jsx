@@ -1,21 +1,7 @@
 import { useReducer } from 'react';
 import { data } from '../../../data';
-
-const reducer = (state, action) => {
-  switch (action.type) {
-    case 'removeItem': 
-      return {
-        ...state,
-        people: state.people.filter((person) => person.id !== action.id),
-      };
-    case 'clearPeople': 
-      return {...state, people: []};
-    case 'resetPeople': 
-      return {...state, people: data};
-    default: 
-      return state;
-  }
-};
+import { REMOVE_ITEM, CLEAR_PEOPLE, RESET_PEOPLE } from './actions.js'
+import reducer from './reducer';
 
 const ReducerBasics = () => {
   const [state, dispatch] = useReducer(reducer, {people: data});
@@ -27,21 +13,21 @@ const ReducerBasics = () => {
         return (
           <div key={id} className='item'>
             <h4>{name}</h4>
-            <button onClick={() => dispatch({type: 'removeItem', id})}>remove</button>
+            <button onClick={() => dispatch({ type: REMOVE_ITEM, payload: { id }})}>remove</button>
           </div>
         );
       })}
       { !!state.people.length && <button
         className='btn'
         style={{ marginTop: '2rem' }}
-        onClick={() => dispatch({type: 'clearPeople'})}
+        onClick={() => dispatch({ type: CLEAR_PEOPLE })}
       >
         clear items
       </button> }
       { state.people !== data && <button
         className='btn'
         style={{ marginTop: '2rem' }}
-        onClick={() => dispatch({type: 'resetPeople'})}
+        onClick={() => dispatch({ type: RESET_PEOPLE })}
       >
         reset items
       </button> }

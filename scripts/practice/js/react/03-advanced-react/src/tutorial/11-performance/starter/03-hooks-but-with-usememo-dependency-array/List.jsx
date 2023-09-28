@@ -1,4 +1,3 @@
-import { memo } from 'react';
 import Item from './Person';
 
 const List = ({ people, removePerson }) => {
@@ -10,4 +9,4 @@ const List = ({ people, removePerson }) => {
     </div>
   );
 };
-export default memo(List);
+export default List;
