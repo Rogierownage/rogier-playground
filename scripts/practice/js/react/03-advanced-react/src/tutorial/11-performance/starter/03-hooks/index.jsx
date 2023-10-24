@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState, useTransition } from 'react';
 import { data } from '../../../../data';
 import List from './List';
 import slowFunction from './SlowFunction';
@@ -6,7 +6,11 @@ import slowFunction from './SlowFunction';
 const LowerState = () => {
   const [people, setPeople] = useState(data);
   const [count, setCount] = useState(0);
-  const bigValue = useMemo(() => slowFunction(count), [count]);
+  const bigValue = useMemo(
+    () => slowFunction(count),
+    [count]
+  );
+
 
   const removePerson = useCallback((id) => {
     setPeople(people.filter((person) => person.id !== id));
