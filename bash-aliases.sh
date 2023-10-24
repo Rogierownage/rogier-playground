@@ -380,12 +380,6 @@ yarnjtifp() {
     yarn watch
 }
 
-# Run GitKraken without affecting the current terminal.
-# It will still shut down if the terminal is shut down, however.
-kraken() {
-    gitkraken </dev/null &>/dev/null &
-}
-
 # Starts Gitkraken and starts the dockerhero container.
 startup() {
     kraken
@@ -428,7 +422,20 @@ kubedashprod() {
     kubedash
 }
 
-### Add composer to path
+# Run make down and make up for both the paqapp and paqapp-web repositories.
+makepaqapp() {
+    cd ~/projects/paqapp
+    
+    make down
+    make up
+    
+    cd ~/projects/paqapp-web
+    
+    make down
+    make up
+}
+
+# Add composer to path
 export PATH="$PATH:$HOME/.composer/vendor/bin" # load composer
 
 # Run the previous command in sudo. For when something doesn't work for some stupid permissions-related reason.
