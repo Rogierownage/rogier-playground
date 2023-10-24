@@ -20,6 +20,7 @@ const LowerState = () => {
       >
         count {count}
       </button>
+      {/* Note: I'm pretty sure you should use React.memo in cases like these, and not what i do here. */}
       {useMemo(() => (
         <List people={people} removePerson={removePerson} />
       ), [people])}

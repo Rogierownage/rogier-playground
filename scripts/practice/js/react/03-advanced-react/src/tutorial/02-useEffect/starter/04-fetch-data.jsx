@@ -1,15 +1,16 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useCallback, useEffect, useState } from "react";
 
 const FetchData = () => {
   const [users, setUsers] = useState([]);
+  const fetchData = useCallback((async () => {
+    const response = await fetch('https://api.github.com/users');
+
+    setUsers(await response.json());
+  }), []);
 
   useEffect(() => {
-    (async () => {
-      const response = await fetch('https://api.github.com/users');
-
-      setUsers(await response.json());
-    })();
-  }, []);
+    fetchData();
+  }, [fetchData]);
 
   const clearUsers = () => setUsers([]);
 

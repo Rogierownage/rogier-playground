@@ -1,0 +1,10 @@
+When using React.useState, you can pass a function for the initial value. This will make sure it only gets evaluated once, which is useful if it is expensive to evaluate.
+You can also pass a function when calling the setter. This makes sure that the current value of the state is always used, even if the value has changed since the function was defined.
+This can be useful with async calls. I guess it can also be used with useCallback so that you don't have to redefine the function when the data changes (through the dependency array).
+
+React.memo can be used to memoize a component. This means that the component will not rerender if the parent rerenders, only if the component's data is changed.
+However, if you pass a function to a memoized component, it will always rerender because the function's reference counts as a new value every time.
+To combat this, you can put React.useCallback around the function where it is defined.
+The second parameter of this is the dependency array. If any of the values in this array change, it re-defines the function.
+
+React.useMemo is used to memoize a value. It will be calculated once, and then only recalculated if the dependencies change.
