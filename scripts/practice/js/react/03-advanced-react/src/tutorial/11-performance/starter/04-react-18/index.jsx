@@ -1,7 +1,12 @@
-import { useState, useTransition } from 'react';
+import { Suspense, lazy, useState, useTransition } from 'react';
+
+
+const SlowComponent = lazy(() => import('./SlowComponent'));
+
 const LatestReact = () => {
   const [text, setText] = useState('');
   const [items, setItems] = useState([]);
+  const [showSlowComponent, setShowSlowComponent] = useState(false);
   const [isPending, startTransition] = useTransition();
 
   const handleChange = (e) => {
@@ -19,6 +24,7 @@ const LatestReact = () => {
       setItems(newItems);
     });
   };
+
   return (
     <section>
       <form className='form'>
@@ -41,6 +47,10 @@ const LatestReact = () => {
       >
         {items}
       </div>}
+      <button className="btn" onClick={() => setShowSlowComponent(!showSlowComponent)}>Toggle</button>
+      {showSlowComponent && <Suspense fallback={<h5>Loading...</h5>}>
+        <SlowComponent />
+      </Suspense>}
     </section>
   );
 };

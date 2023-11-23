@@ -382,7 +382,7 @@ yarnjtifp() {
 
 # Starts Gitkraken and starts the dockerhero container.
 startup() {
-    kraken
+    gitkraken
     herocd start
 }
 
