@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const newItems = Array.from({ length: 2000 }, (_, index) => {
+const newItems = Array.from({ length: 4000 }, (_, index) => {
   return (
     <div key={index}>
       <img src='/vite.svg' alt='' />
@@ -8,7 +8,7 @@ const newItems = Array.from({ length: 2000 }, (_, index) => {
   );
 });
 
-const AnotherSlowComponent = () => {
+const SlowerComponent = () => {
   const [items, setItems] = useState(newItems);
   return (
     <div
@@ -23,4 +23,4 @@ const AnotherSlowComponent = () => {
     </div>
   );
 };
-export default AnotherSlowComponent;
+export default SlowerComponent;

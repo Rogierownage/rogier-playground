@@ -1,8 +1,8 @@
 import { Suspense, lazy, useState } from 'react';
-const AnotherSlowComponent = lazy(() => import('./AnotherSlowComponent'));
+const SlowerComponent = lazy(() => import('./SlowerComponent'));
 const SuperSlowComponent = lazy(() => import('./SuperSlowComponent'));
 
-const newItems = Array.from({ length: 2000 }, (_, index) => {
+const newItems = Array.from({ length: 1500 }, (_, index) => {
   return (
     <div key={index}>
       <img src='/vite.svg' alt='' />
@@ -11,15 +11,16 @@ const newItems = Array.from({ length: 2000 }, (_, index) => {
 });
 
 const SlowComponent = () => {
-  const [showThird, setShowThird] = useState(false);
+  const [show, setShow] = useState(false);
   const [items, setItems] = useState(newItems);
   
   return (
     <Suspense fallback={<h5>Loading...</h5>}>
-      <button className='btn' onClick={() => setShowThird(!showThird)}>Nested toggle</button>
+      <button className='btn' onClick={() => setShow(!show)}>Nested toggle</button>
       <Suspense fallback={<h5>Loading nested...</h5>}>
-        {showThird && <SuperSlowComponent />}
+        {show && <SuperSlowComponent />}
       </Suspense>
+      <SlowerComponent />
       <div
         style={{
           display: 'grid',
@@ -30,7 +31,6 @@ const SlowComponent = () => {
         Slow component
         {items}
       </div>
-      <AnotherSlowComponent />
     </Suspense>
   );
 };
