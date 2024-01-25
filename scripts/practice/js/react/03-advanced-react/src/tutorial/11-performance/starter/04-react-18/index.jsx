@@ -1,4 +1,4 @@
-import { Suspense, lazy, useState, useTransition } from 'react';
+import { useState, useTransition } from 'react';
 
 import SlowComponent from './SlowComponent';
 
