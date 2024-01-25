@@ -435,6 +435,16 @@ makepaqapp() {
     make up
 }
 
+# Run an artisan command inside the socapp-worker container.
+workerartisan() {
+    docker compose exec worker-subscriber php artisan $1
+}
+
+# Run a given command a given number of times.
+repeattimes() {
+    for i in {1.."$1"}; do "${@:2}"; done
+}
+
 # Add composer to path
 export PATH="$PATH:$HOME/.composer/vendor/bin" # load composer
 
