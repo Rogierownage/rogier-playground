@@ -103,7 +103,7 @@ sshkube() {
         cd ~/projects/$1
     fi
     
-    docker compose exec -it local-php-fpm sh
+    docker compose exec -it php-fpm sh
 }
 
 # Clone the given Mercurial repository from Bitbucket.
