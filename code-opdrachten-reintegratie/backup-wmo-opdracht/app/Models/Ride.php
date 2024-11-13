@@ -6,29 +6,29 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Region extends Model
+class Ride extends Model
 {
     use HasFactory;
 
     /** @var array */
     protected $fillable = [
-        'name',
+        'distance',
+        'from_address',
+        'from_zip_code',
+        'from_city',
+        'to_address',
+        'to_zip_code',
+        'to_city',
     ];
 
-    public function users(): HasMany
+    public function user(): BelongsTo
     {
-        return $this->hasMany(User::class);
-    }
-
-    public function taxiCompany(): BelongsTo
-    {
-        return $this->belongsTo(TaxiCompany::class);
+        return $this->belongsTo(User::class);
     }
 
     public function scopeForTaxiCompany(Builder $query, TaxiCompany $taxiCompany)
     {
-        $query->where('taxi_company_id', $taxiCompany->id);
+        $query->whereHas('user', fn ($query) => $query->forTaxiCompany($taxiCompany));
     }
 }

@@ -5,16 +5,23 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
+    /**
+     * Run the migrations.
+     */
     public function up(): void
     {
-        Schema::create('wmo_budgets', function (Blueprint $table) {
+        Schema::create('rides', function (Blueprint $table) {
             $table->id();
 
             $table->foreignId('user_id');
-            $table->boolean('active')->default(true);
-            $table->decimal('current_budget', 10, 3, true);
-            $table->decimal('yearly_budget', 10, 3, true);
-            $table->date('current_budget_set_at');
+
+            $table->decimal('distance', 10, 3, true);
+            $table->string('from_address');
+            $table->string('from_zip_code');
+            $table->string('from_city');
+            $table->string('to_address');
+            $table->string('to_zip_code');
+            $table->string('to_city');
 
             $table->timestamps();
 
