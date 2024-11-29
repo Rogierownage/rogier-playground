@@ -10,4 +10,7 @@ Route::group([
     Route::get('{taxiCompany}', [RideController::class, 'index'], [
         'as'   => 'index',
     ]);
+    Route::post('', [RideController::class, 'store'], [
+        'as'   => 'store',
+    ]);
 });
