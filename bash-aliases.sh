@@ -36,15 +36,12 @@ hgstory() {
 }
 
 # Run the docker-compose command inside the dockerhero directory, and then return to the directory you were in.
-herocd() {
-    command=$1
-    arguments=$2
-    
+herocd() {    
     initialDirectory=$PWD
     
     cd /home/developer/projects/dockerhero
     
-    docker-compose $command $arguments
+    docker-compose "$@"
     
     cd $initialDirectory
 }
@@ -66,8 +63,8 @@ kubecd() {
 # Kill dockerhero containers and then start everything up again, asynchronously.
 heroreboot() {
     herocd down
-    herocd up --no-start
-    herocd start
+    herocd --profile phpmyadmin up --force-recreate --no-start
+    herocd --profile phpmyadmin start
 }
 
 # Set the php version in the docker-compose.override.yml file and then reboot dockerhero.
@@ -88,7 +85,7 @@ herotokube() {
     if [ "$1" ]; then
         cd ~/projects/$1
         
-        docker-compose up
+        docker-compose up -d
     fi
 }
 
@@ -443,6 +440,16 @@ workerartisan() {
 # Run a given command a given number of times.
 repeattimes() {
     for i in {1.."$1"}; do "${@:2}"; done
+}
+
+# Shorthand for php artisan
+art() {
+    php artisan "$@"
+}
+
+# Shorthand for php artisan tinker
+tink() {
+    php artisan tinker
 }
 
 # Add composer to path
