@@ -191,3 +191,47 @@ if (typeof response === 'number' && typeof response === 'string') {
 
 // Invalid because the function returns implicitly. It is not allowed to return at all.
 function nothing(): never { };
+
+
+// Types can be inferred by the TS engine. This example gets inferred as { name: string }. There is usually no need to explicitly declare types. For functions however, it is considered best practice to do so anyways.
+let personalData = { name: 'うずまきナルト' };
+
+
+// You can define a type for later use, by using the type keyword.
+type personType = { id: number, name: string }
+
+let employee: personType;
+let customer: personType;
+
+
+// Properties can be typed as optional by using a question mark. Keep in mind not to overuse this though, or you lose the point of typescript.
+let shop: { name: string, coordinates?: [number, number] } = { name: 'Gamestop' };
+
+// Valid.
+shop.coordinates = [100, 500];
+shop.coordinates = undefined;
+shop = { name: 'Albert Heijn' };
+shop = { name: 'Target', coordinates: [300.50, 0] };
+
+// Invalid
+shop.coordinates = null;
+shop.coordinates = [300];
+shop = {};
+shop = { name: 'Nintendo', coordinates: {} };
+shop = { name: 'Olive Garden', petsAllowed: false };
+
+
+// Properties can be defined as readonly, so that they can't be modified.
+let information: { readonly hasPets: boolean } = { hasPets: true };
+
+// Invalid.
+information.hasPets = false;
+information.hasPets = true;
+information.isLarge = true;
+
+// You can actually reassign the entire object, but it will keep its type definition. The following is valid.
+information = { hasPets: false };
+
+// Invalid.
+information.hasPets = true;
+information = { name: 'John Oliver' };

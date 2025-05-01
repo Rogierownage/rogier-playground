@@ -1,12 +1,7 @@
 "use strict";
-let isEven = (number) => number % 2 === 0;
-console.log(isEven(15));
-let person; // Valid
-person = {}; // Valid
-person = { name: 'John' }; // Valid
-person = {}; // Valid
-person = () => '';
-if ('name' in person && typeof (person.name) === 'string') {
-    console.log(person.name.toUpperCase());
-}
+let information = { hasPets: true };
+console.log(information);
+// You can actually reassign the entire object, but it will keep its type definition. The following is valid.
+information = { hasPets: false };
+console.log(information);
 //# sourceMappingURL=index.js.map

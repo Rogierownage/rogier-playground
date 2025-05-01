@@ -1,13 +1,8 @@
-let isEven = (number: number): boolean => number % 2 === 0;
+let information: { readonly hasPets: boolean } = { hasPets: true };
 
-console.log(isEven(15));
+console.log(information);
 
-let person: {}; // Valid
-person = {}; // Valid
-person = { name: 'John' }; // Valid
-person = {}; // Valid
-person = () => '';
+// You can actually reassign the entire object, but it will keep its type definition. The following is valid.
+information = { hasPets: false };
 
-if ('name' in person && typeof (person.name) === 'string') {
-    console.log(person.name.toUpperCase());
-}  
+console.log(information);
