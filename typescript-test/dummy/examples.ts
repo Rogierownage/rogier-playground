@@ -121,7 +121,7 @@ items = null;
 items = undefined;
 
 
-// Best practice: Functions should always have parameter and return types defined explicitly.
+// Best-practice: Functions should always have parameter and return types defined explicitly.
 function calculateTaxes(income: number): number {
     return income * 0.19;
 }
@@ -193,7 +193,7 @@ if (typeof response === 'number' && typeof response === 'string') {
 function nothing(): never { };
 
 
-// Types can be inferred by the TS engine. This example gets inferred as { name: string }. There is usually no need to explicitly declare types. For functions however, it is considered best practice to do so anyways.
+// Types can be inferred by the TS engine. This example gets inferred as { name: string }. There is usually no need to explicitly declare types. For functions however, it is considered best-practice to do so anyways.
 let personalData = { name: 'うずまきナルト' };
 
 
@@ -213,7 +213,7 @@ shop.coordinates = undefined;
 shop = { name: 'Albert Heijn' };
 shop = { name: 'Target', coordinates: [300.50, 0] };
 
-// Invalid
+// Invalid.
 shop.coordinates = null;
 shop.coordinates = [300];
 shop = {};
@@ -235,3 +235,256 @@ information = { hasPets: false };
 // Invalid.
 information.hasPets = true;
 information = { name: 'John Oliver' };
+
+
+// If you want to annotate the return type of a function, while defining the parameters normally, you can use a colon like this. This is nice and concise.
+let splitBySpaces = (string: string): string[] => string.split(' ');
+// If you want to annotate the entire function, you can use a colon and arrow, like this.
+let logger: (message: string) => void;
+
+let banaan = { name: 'Yes', age: 5 };
+
+type Dog = { bark: () => void };
+type Cat = { meow: () => void };
+
+
+// Union type. Can be either one.
+let animal: Dog | Cat | string;
+
+// Valid.
+animal = { bark: () => console.log('Woof') };
+animal = { meow: () => console.log('Meow') };
+animal = { bark: () => console.log('Woof'), meow: () => console.log('Meow') };
+animal = 'Bob';
+
+// Invalid.
+animal = {};
+animal = { bark: () => console.log('Woof'), meow: () => console.log('Meow'), greet: () => console.log('Hello') };
+animal = { name: 'Peppy' };
+animal = 5;
+
+
+// Intersection type. Must be both.
+let pet: Dog & Cat;
+
+// Valid.
+pet = { bark: () => console.log('Woof'), meow: () => console.log('Meow') }
+
+// Invalid.
+pet = { bark: () => console.log('Woof') };
+pet = { meow: () => console.log('Meow') };
+pet = {};
+pet = { bark: () => console.log('Woof'), meow: () => console.log('Meow'), greet: () => console.log('Hello') };
+pet = { name: 'Peppy' };
+pet = 5;
+
+
+// Union type alias definition.
+type TennisScore = 0 | 15 | 30 | 40 | 'advantage' | 'deuce';
+let myScore: TennisScore;
+
+// Valid
+myScore = 0;
+myScore = 15;
+myScore = 'advantage';
+myScore = 40;
+
+// Invalid.
+myScore = 'Advantage';
+myScore = 'tie';
+myScore = 16;
+myScore = null;
+myScore = undefined;
+myScore = {};
+myScore = [];
+myScore = () => '';
+
+
+let getCustomer = (id?: number): string | null => 'John';
+
+getCustomer();
+// string | null
+let myCustomer = getCustomer(1);
+
+// Invalid.
+getCustomer(null);
+
+function getPeople(): string[] | null {
+    if (1) {
+        return null;
+    }
+
+    return ['Donald'];
+}
+
+let people = getPeople();
+
+// Invalid.
+people[0];
+
+// Valid. Optional property accessor.
+people?.[0].toUpperCase()
+
+
+let getDestroyer = (): Function | null => {
+    if (1) {
+        return () => '';
+    }
+
+    return null;
+}
+
+let destroy = getDestroyer();
+
+// Invalid
+destroy();
+
+// Valid. Optional function call operator.
+destroy?.();
+
+
+let fetchUser = (params: { email: string }): {} => {
+    return params;
+}
+
+// Invalid, too many properties
+fetchUser({ email: 'test@paqt.com', token: 'uf484f39i439fif43' });
+
+let params = { email: 'test@paqt.com', token: 'uf484f39i439fif43' };
+// Valid for some reason. Typescript bug?
+fetchUser(params);
+
+
+let myArray: number[];
+let myTuple: [number] = [1];
+// Can assign tuple to matching array.
+myArray = myTuple;
+
+
+(val: string | number) => {
+    if (typeof val === 'string') {
+        return val.toUpperCase();
+    }
+
+    // The TS engine understands that it must be a number if it reaches this point.
+    val.toFixed(2);
+}
+
+(val: string | number) => {
+    if (typeof val === 'string') {
+        val = val.toUpperCase();
+    } else {
+        // The TS engine understands that it must be a number here.
+        val = val.toFixed(2);
+    }
+
+    return val;
+}
+
+(val: string | number | any[]) => {
+    if (typeof val === 'string') {
+        return val.toUpperCase();
+    }
+
+    // Invalid. Even though it can't be a string anymore, it's still not sure that it is actually a number. It could still be an array.
+    val.toFixed(2);
+
+    // JS is weird, so we check for object here, which confirms whether it's an array or not.
+    if (typeof val !== 'object') {
+        // Now this is valid. We checked that it's not an array, so it must be a number.
+        val.toFixed();
+    }
+
+}
+
+// Either all strings or all numbers.
+let myList: string[] | number[];
+myList = [1, 2, 3];
+myList = ['', 'hello'];
+// Invalid
+myList = [1, 2, "3"];
+
+// These two syntaxes are identical. An array that can contain a combination of strings and numbers.
+let myList2: Array<string | number>
+let myList3: (string | number)[];
+myList2 = [1, 2, "3"];
+myList3 = [1, 2, "3"];
+
+
+// Using "as const" defines the values as literals, not just as types.
+const cat = { id: 30, name: 'Floofy' } as const;
+const myCoordinates = [30, 1000] as const;
+// Invalid. The array is actually immutable now, including functions.
+myCoordinates.push(30);
+
+
+type myCat = { type: 'cat', meow: Function };
+type myDog = { type: 'dog', bark: Function };
+type myAnimal = myCat | myDog;
+
+// Discriminated union. The type literal determines which object definition is matched.
+let getAnimal = (id: number): myAnimal => {
+    if (id === 1) {
+        return { type: 'cat', meow: () => console.log('Mreew') }
+    };
+
+    return { type: 'dog', bark: () => console.log('Wroof') };
+}
+
+const myPet = getAnimal(1);
+
+// The only known property here is type. I can't use meow or bark. Keep in mind that the type property will be available either way.
+myPet.type;
+// Invalid
+myPet.meow();
+myPet.bark();
+
+if (myPet.type === 'cat') {
+    // Now i can use meow, but not bark.
+    myPet.type;
+    myPet.meow();
+    // Invalid
+    myPet.bark();
+} else {
+    // Now i can use bark, but not meow.
+    myPet.type;
+    myPet.bark();
+    // Invalid
+    myPet.meow();
+}
+
+// Invalid. Discriminated type is enforced when initializing.
+let doggy: myAnimal = { type: 'dog', meow: () => '' };
+
+
+// "Best of both worlds" approach when defining constants. Define as const with a type, while keeping the literal value type inferred by the TS engine.
+const myDoggy = { name: 'Fishy' } as const satisfies { name: string };
+// This avoids changing the value. This is now invalid.
+myDoggy.name = 'Hello';
+// This avoids assigning the wrong values. This is now invalid.
+const myDoggy2 = { name: 15 } as const satisfies { name: string };
+
+
+// Template literal type. Must conform to the defined "blueprint". This is valid.
+let rating: `I rate ${number}/${number}` = 'I rate 8/8';
+rating = 'I rate 100/200';
+
+// Invalid
+rating = 'I rate very high';
+rating = 'I Rate 5/6';
+rating = 'I rate five/five';
+
+
+type Game = 'Splatoon 3' | 'Elden Ring' | 'Clair Obscur: Expedition 33' | 'Noita';
+type Rating = `I give ${Game} the rating ${number}/${number}.`;
+
+// Invalid.
+let tooMuchWater: Rating = 'I give Pokemon Emerald the rating 7.8/10.';
+tooMuchWater = 'I give Smash Bros the rating 100/100.';
+// Valid
+tooMuchWater = 'I give Noita the rating 98/100.'
+tooMuchWater = 'I give Clair Obscur: Expedition 33 the rating 93.5/99.';
+
+
+const USER_ROLES = ['guest', 'moderator', 'administrator'] as const;
+type UserRole = (typeof USER_ROLES)[number];
