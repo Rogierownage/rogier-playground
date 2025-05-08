@@ -474,7 +474,6 @@ rating = 'I rate very high';
 rating = 'I Rate 5/6';
 rating = 'I rate five/five';
 
-
 type Game = 'Splatoon 3' | 'Elden Ring' | 'Clair Obscur: Expedition 33' | 'Noita';
 type Rating = `I give ${Game} the rating ${number}/${number}.`;
 
@@ -488,3 +487,55 @@ tooMuchWater = 'I give Clair Obscur: Expedition 33 the rating 93.5/99.';
 
 const USER_ROLES = ['guest', 'moderator', 'administrator'] as const;
 type UserRole = (typeof USER_ROLES)[number];
+
+
+// Defining a generic type using carets before the function parenthesis, which basically "remembers" the type of the parameter so that it can be used for the return value.
+// This function is defined as returning the same type as its argument, which can be any type.
+function identity<Banana>(arg: Banana): Banana {
+    return arg;
+}
+
+// Valid
+identity('John').toUpperCase();
+identity(100.15).toFixed(2);
+identity<string>('Hello');
+// Invalid
+identity<boolean>(100);
+
+function getAny(): any {
+    return 500;
+}
+
+let anyValue = getAny();
+// Explicitly state that the parameter will be a number, even though any is passed. Typescript now knows that a number will also be returned.
+let returnVal = identity<number>(anyValue);
+// Valid
+returnVal.toFixed(3);
+
+
+let genericFunc = <FirstType, SecondType>(arg1: FirstType, arg2: SecondType): FirstType | SecondType => {
+    if (Math.random() >= 0.5) {
+        return arg1;
+    }
+
+    return arg2;
+}
+
+// Now someVar will be type: string | number
+let someVar = genericFunc('Hello', 100);
+
+// These are valid.
+if (typeof someVar === 'string') {
+    someVar.toUpperCase();
+} else {
+    someVar.toFixed(2);
+}
+
+function arrayIdentity<Type>(list: Type[]): Type[] {
+    console.log(list.length);
+
+    return list;
+}
+
+// Type will be (string | number)[]
+let coolListBro = arrayIdentity([100, 'hello']);
