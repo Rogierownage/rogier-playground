@@ -198,10 +198,10 @@ let personalData = { name: 'うずまきナルト' };
 
 
 // You can define a type for later use, by using the type keyword.
-type personType = { id: number, name: string }
+type PersonType = { id: number, name: string }
 
-let employee: personType;
-let customer: personType;
+let employee: PersonType;
+let customer: PersonType;
 
 
 // Properties can be typed as optional by using a question mark. Keep in mind not to overuse this though, or you lose the point of typescript.
@@ -418,12 +418,12 @@ const myCoordinates = [30, 1000] as const;
 myCoordinates.push(30);
 
 
-type myCat = { type: 'cat', meow: Function };
-type myDog = { type: 'dog', bark: Function };
-type myAnimal = myCat | myDog;
+type MyCat = { type: 'cat', meow: Function };
+type MyDog = { type: 'dog', bark: Function };
+type MyAnimal = MyCat | MyDog;
 
 // Discriminated union. The type literal determines which object definition is matched.
-let getAnimal = (id: number): myAnimal => {
+let getAnimal = (id: number): MyAnimal => {
     if (id === 1) {
         return { type: 'cat', meow: () => console.log('Mreew') }
     };
@@ -454,7 +454,7 @@ if (myPet.type === 'cat') {
 }
 
 // Invalid. Discriminated type is enforced when initializing.
-let doggy: myAnimal = { type: 'dog', meow: () => '' };
+let doggy: MyAnimal = { type: 'dog', meow: () => '' };
 
 
 // "Best of both worlds" approach when defining constants. Define as const with a type, while keeping the literal value type inferred by the TS engine.
@@ -539,3 +539,211 @@ function arrayIdentity<Type>(list: Type[]): Type[] {
 
 // Type will be (string | number)[]
 let coolListBro = arrayIdentity([100, 'hello']);
+
+
+import User from '../src/user.js';
+
+let me = new User(1, 'test@example.com', 'Test user');
+me.log(); // Object { email: "test@example.com", name: "Test user", id: 1 }
+
+console.log(me); // Object { id: 1, email: "test@example.com", name: "Test user", key: "user" }
+
+// Invalid. Readonly property.
+me.id = 3;
+// Invalid. Private property.
+me.key;
+
+
+// Function where both parameters must be the same type.
+let coolFunc = <Type>(var1: Type, var2: Type): void => console.log({ var1, var2 });
+
+// Valid.
+coolFunc(1, 3);
+coolFunc(true, false);
+coolFunc<string>('Hello', 'Good day');
+// Invalid.
+coolFunc(1, 'hey');
+coolFunc<boolean>(1, 2);
+
+
+// Key must exist in object.
+let getProp = <TObj extends object, TKey extends keyof TObj>(obj: TObj, key: TKey): any => {
+    return obj[key];
+}
+
+// Valid
+getProp({ value: 10 }, 'value');
+// Invalid
+getProp({ value: 10 }, 'name');
+
+getProp([1], 3);
+
+[1][3]
+
+type NormalUser = { email: string };
+type ImportantUser = { email: string, isAdmin: boolean };
+
+(user: NormalUser | ImportantUser) => {
+    // Invalid
+    user.isAdmin;
+
+    // Valid. Inline narrowing and then using the property right away.
+    return 'isAdmin' in user && user.isAdmin;
+}
+
+type Fish = { swim: () => void };
+type Bear = { roar: () => void };
+
+let getFishOrBear = (): Fish | Bear => {
+    return { swim: () => null };
+};
+
+// Returns whether type is Fish.
+let isFish = (animal: Fish | Bear): animal is Fish => {
+    return 'swim' in animal;
+}
+
+let fishOrBear = getFishOrBear();
+
+if (isFish(fishOrBear)) {
+    // In this case it must be a fish, so this is valid.
+    fishOrBear.swim();
+} else {
+    // In this case it must be a bear, so this is invalid.
+    fishOrBear.swim();
+}
+
+// This type doesn't look very nice when you hover over it.
+type UglyType = {
+    a: 'hello',
+    b: 'hi'
+} & {
+    b: {},
+    c: []
+} & {
+    person: object,
+    animal: string
+}
+
+// This utility makes it look nicer when applied.
+type Prettify<T> = {
+    [K in keyof T]: T[K]
+} & {};
+
+// Now the hover looks nice.
+type PrettyType = Prettify<UglyType>
+
+// This is probably weird and hacky, but i am "flipping" the type here (Swapping the keys and values). This doesn't work or make sense with most types, though.
+type Flip<T> = {
+    [K in keyof T as Extract<T[K], PropertyKey>]: K
+}
+// Only the string types are actually preserved now, and with certain types (Like number or string) some weird crap happens.
+type Transformed = Flip<PrettyType>;
+
+// Transforms the type so that each type gets mapped into a getter function that returns the type.
+type Getters = {
+    [K in keyof PrettyType as `get${Capitalize<K>}`]: () => PrettyType[K]
+}
+
+// Simply put, keyof creates a union type of all the keys.
+type Keys = keyof PrettyType
+
+// The following 2 approaches give the same result.
+type Values = PrettyType[keyof PrettyType]
+type Values2 = PrettyType['a' | 'b' | 'c' | 'person' | 'animal']
+
+const routes = {
+    home: '/',
+    admin: 'admin/login',
+    user: 'user',
+} as const;
+
+// This function must get one of the keys of routes as the parameter.
+let getRoute = <TRoute extends keyof typeof routes>(route: TRoute): string => routes[route]
+
+// You must pass 'home', 'admin', or 'user'. Autocompletion is supported.
+getRoute('admin');
+
+// typeof gets you the type definition of the value.
+type routesTypes = typeof routes;
+// keyof then gets you the keys as a union type.
+type routesTypesKeys = keyof routesTypes;
+// The above actually works without "as const".
+
+// However the following would not work without it. It would simply become "string", rather than a union of the original values.
+type routesValues = (typeof routes)[keyof typeof routes];
+
+type GenericRequest<TData> = {
+    code: number,
+    error?: string,
+    data: TData,
+}
+
+// Valid.
+let myRequest: [GenericRequest<number>, GenericRequest<{ field: string, message: string }>] = [
+    { code: 201, data: 20.5 },
+    {
+        code: 422,
+        error: 'Data invalid',
+        data: { field: 'name', message: 'Name is required' }
+    },
+];
+
+function getData(url: string): any {
+    // Imagine that the return type is not consistent here.
+    return {};
+}
+
+function fetch<TReturn>(url: string): TReturn {
+    return getData(url);
+};
+
+// Now we can specify the return type directly, and TS will understand it.
+let result = fetch<{ name: string }>('www.google.nl');
+
+
+type GetReturnType<T extends (...args: any) => any> = ReturnType<T>;
+type MyReturn = GetReturnType<() => 'hello'>;
+
+
+// Must be an object with string keys and number values.
+let myRecord: Record<string, number>;
+
+// Valid
+myRecord = {
+    a: 15,
+    b: 20,
+    greeting: 500,
+
+    // This is allowed for some reason.
+    300: 500,
+
+    // Not allowed:
+    d: [100],
+};
+myRecord.c = 30;
+
+// Invalid.
+myRecord[5] = [];
+myRecord = [];
+myRecord = 5;
+myRecord = 'hey';
+
+
+function getObjectKeys<TObj extends {}>(object: TObj) {
+    // Assert the type so that TS understands that the keys match this type, rather than just inferring an array of strings.
+    return Object.keys(object) as Array<keyof TObj>;
+}
+
+let myKeys = getObjectKeys({ name: 'Test', age: 500 });
+
+
+// Default type: number
+function createSet<T = number>() {
+    return new Set<T>;
+}
+
+// Type: Set<string>
+let myCreatedSet = createSet<string>();
+// Type: Set<number>
+let myCreatedSet2 = createSet();
