@@ -702,6 +702,10 @@ function fetch<TReturn>(url: string): TReturn {
 let result = fetch<{ name: string }>('www.google.nl');
 
 
+function myFunc() { return ''; }
+type myReturnType = ReturnType<typeof myFunc>
+
+
 type GetReturnType<T extends (...args: any) => any> = ReturnType<T>;
 type MyReturn = GetReturnType<() => 'hello'>;
 
@@ -747,3 +751,126 @@ function createSet<T = number>() {
 let myCreatedSet = createSet<string>();
 // Type: Set<number>
 let myCreatedSet2 = createSet();
+
+type myType = typeof createSet extends (...args: any) => any ? true : false;
+
+
+function isFunction<T>(arg: T): boolean {
+    // This makes no sense, and doesn't work. You can't return a type in a regular function because types don't exist during runtime. Use a type function instead.
+    return typeof createSet extends (...args: any) => any ? true : false;
+}
+
+// This works. Though having a type of true/false like this  may not actually be useful.
+type isFunctionType<T> = T extends (...args: any) => any ? true : false;
+type myResult = isFunctionType<typeof createSet>
+
+
+type inferArg<T> = T extends (arg: infer A) => any ? A : never;
+
+type type1 = inferArg<(name: string) => string> // string
+type type2 = inferArg<(id: number) => never>; // number
+type type3 = inferArg<() => boolean>; // unknown. It seems TS does infer the argument (even if there isn't actually one) as `unknown`.
+
+
+type inferReturn<T> = T extends (...args: any) => infer R ? R : never;
+
+type type4 = inferReturn<() => null> // null
+type type5 = inferReturn<() => string> // string
+type notAFunction = inferReturn<string> // never. The expression does not match since it's not even a function.
+
+// This is invalid.
+type type6 = inferReturn<typeof (arg: string) => arg.length === 5 >; // null
+// This does work.
+let myFunction = (arg: string) => arg.length === 5;
+type type7 = inferReturn<typeof myFunction>; // boolean
+
+
+// Returns the argument's type, but only if the return type is string or number.
+type conditionalInfer<T> = T extends (arg: infer A) => string | number ? A : '???';
+
+type type8 = conditionalInfer<(arg: number) => boolean> // ???
+type type9 = conditionalInfer<(arg: number) => string> // number
+type type10 = conditionalInfer<(arg: () => void) => number> // () => void
+type type11 = conditionalInfer<(arg: number) => any> // number. Not sure why, since return type any should not match string | number, i thought.
+
+type type12 = string extends any ? true : false; // true
+type type13 = any extends string | number ? true : false; // boolean. Apparently the TS engine gets confused or something?
+
+
+// Returns the function's argument if it is itself a function. Otherwise never.
+type inferIfArgFunc<T> = T extends (arg: infer A extends (...args: any) => any) => any ? A : never
+
+type type14 = inferIfArgFunc<(arg: string) => null>; // never
+type type15 = inferIfArgFunc<(arg: boolean) => null>; // never
+type type16 = inferIfArgFunc<(arg: () => null) => null>; // () => null
+type type17 = inferIfArgFunc<() => null>; // () => (...args: any) => any. Not sure why this happens.
+
+
+function arrayWrap<T>(input: T): Array<T> {
+    return [input];
+}
+
+let myVar = arrayWrap({ id: 13, name: 'Jo' });
+myVar.length;
+
+
+function getArrayItem<T>(array: Array<T>, index: number): T {
+    return array[index];
+}
+
+let item1 = getArrayItem([1, 5, 100], 1);
+// TS doesn't actually know the exact type here.
+let item2 = getArrayItem([1, 2, 'hi'], 2);
+
+
+function getIndexOfItem<T>(array: Array<T>, item: NoInfer<T>): number {
+    return array.findIndex((value) => item === value);
+}
+
+// Valid
+let index1 = getIndexOfItem([100, 10, 0], 10);
+// Valid even though the item does not exist. The type does match.
+getIndexOfItem([1, 2, 3], 10);
+// Invalid because the item does not match with the array's type.
+getIndexOfItem([1, 2, 3], '15');
+
+function getIndexOfItemWithLiterals<T extends number>(array: Array<T>, item: T): number {
+    return array.findIndex((value) => item === value);
+}
+
+// Now the types are inferred as literal values.
+getIndexOfItemWithLiterals([1, 2, 3], 3);
+// But you can still pass an item that doesn't exist.
+getIndexOfItemWithLiterals([1, 2, 3], 10);
+
+function getIndexOfItemWithLiteralsAndNoInfer<T extends number>(array: Array<T>, item: NoInfer<T>): number {
+    return array.findIndex((value) => item === value);
+}
+
+// Types are still inferred as literals
+getIndexOfItemWithLiteralsAndNoInfer([1, 2, 3], 3);
+// But now the second parameter is not inferred, so passing a non-existant item is blocked!
+getIndexOfItemWithLiteralsAndNoInfer([1, 2, 3], 10);
+
+
+// Returns a tuple type of the arguments.
+function makeArray<T1, T2, T3>(arg1: T1, arg2: T2, arg3: T3): [T1, T2, T3] { return [arg1, arg2, arg3]; }
+
+let myArray2 = makeArray(100, 10, 'he');
+// Tuple of arrays of numbers
+let myArray1 = makeArray([1], [1, 2], [100]);
+
+
+function setOptions({ theme }: { theme: string }): void {
+    // Do some logic.
+    theme.toUpperCase();
+}
+
+
+// Defines a generic constant type.
+function getFirst<const T>(array: Array<T>): T {
+    return array[0];
+}
+
+// Now the return value is known as a literal string.
+let myStatus = getFirst(['concept', 'published']);
