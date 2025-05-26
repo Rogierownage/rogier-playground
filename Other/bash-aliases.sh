@@ -1,6 +1,6 @@
 # Open this file and reload it so that any previous changes can be used in the current terminal.
 bashalias() {
-    aliasPath='/home/developer/projects/rogier-playground/bash-aliases.sh'
+    aliasPath='/home/developer/projects/rogier-playground/Other/bash-aliases.sh'
     
     gedit $aliasPath
     source $aliasPath
@@ -313,7 +313,7 @@ startEverything() {
     gitkraken &
     herocd start
 
-    xterm -hold -e 'source /home/developer/projects/rogier-playground/bash-aliases.sh; updateAndRemove' &
+    xterm -hold -e 'source /home/developer/projects/rogier-playground/Other/bash-aliases.sh; updateAndRemove' &
 	
     exit
 }
