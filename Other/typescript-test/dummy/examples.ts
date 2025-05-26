@@ -874,3 +874,40 @@ function getFirst<const T>(array: Array<T>): T {
 
 // Now the return value is known as a literal string.
 let myStatus = getFirst(['concept', 'published']);
+
+
+const vibe1: { mood: 'happy' | 'sad' } = { mood: 'happy' };
+vibe1.mood = 'happy';
+vibe1.mood = 'sad';
+
+const vibe2 = { mood: 'happy' } satisfies { mood: 'happy' | 'sad' };
+vibe2.mood = 'happy';
+// Invalid.
+vibe2.mood = 'sad';
+
+
+// "satisfies" doesn't narrow the type here. It only checks that the type matches up at declaration. It does not help TS to infer the type.
+const vibe3: { mood: 'happy' | 'sad' } = { mood: 'happy' } satisfies { mood: 'happy' };
+vibe3.mood = 'happy';
+vibe3.mood = 'sad';
+
+// Using "as" specifies the type as the literal string. Without "as", TS would infer the broader string type by default.
+const vibe4 = { mood: 'happy' } as { mood: 'happy' };
+vibe4.mood = 'happy';
+vibe4.mood = 'sad';
+
+
+// Use case: Try to find an element from the DOM. But in some edge cases it might not actually exist. You can never know 100% for sure.
+
+// This infers the type as Element | null. This is not ideal because it's so wide.
+const element1 = document.querySelector('#foo')
+// If you want to check that it exists, you can do this: 
+if (!(element1 instanceof HTMLDivElement)) {
+    throw new Error('Element with ID #foo not found');
+}
+// Now the type is narrowed to HTMLDivElement.
+element1;
+
+// If you are absolutely sure it exists (or are pretending to be), you can do this. Now the type is determined to be HTMLDivElement.
+// But if the element doesn't actually exist somehow, you get a type mismatch which is bad.
+const element2 = document.querySelector('#foo') as HTMLDivElement
