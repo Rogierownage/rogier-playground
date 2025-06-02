@@ -606,12 +606,27 @@ let isFish = (animal: Fish | Bear): animal is Fish => {
 let fishOrBear = getFishOrBear();
 
 if (isFish(fishOrBear)) {
-    // In this case it must be a fish, so this is valid.
+    // In this case it must be Fish, so this is valid.
     fishOrBear.swim();
 } else {
-    // In this case it must be a bear, so this is invalid.
+    // In this case it must be Bear, so this is invalid.
     fishOrBear.swim();
 }
+
+// Assert function. This asserts that animal is Fish. Otherwise an error is thrown.
+function assertIsFish(animal: Fish | Bear): asserts animal is Fish {
+    if (!('swim' in animal)) {
+        throw new Error();
+    }
+}
+
+// Do the assertion.
+assertIsFish(fishOrBear);
+// If this part of the code is reached, it must be Fish. So this is valid.
+fishOrBear.swim();
+// Now this is invalid.
+fishOrBear.roar();
+
 
 // This type doesn't look very nice when you hover over it.
 type UglyType = {
@@ -901,7 +916,7 @@ vibe4.mood = 'sad';
 
 // This infers the type as Element | null. This is not ideal because it's so wide.
 const element1 = document.querySelector('#foo')
-// If you want to check that it exists, you can do this: 
+// If you want to check that it exists, you can do this:
 if (!(element1 instanceof HTMLDivElement)) {
     throw new Error('Element with ID #foo not found');
 }
@@ -911,3 +926,31 @@ element1;
 // If you are absolutely sure it exists (or are pretending to be), you can do this. Now the type is determined to be HTMLDivElement.
 // But if the element doesn't actually exist somehow, you get a type mismatch which is bad.
 const element2 = document.querySelector('#foo') as HTMLDivElement
+
+
+// If the argument is a string that contains the substring, remove the substring. Otherwise return the original.
+type RemoveMaps<TArgument> = TArgument extends `maps_${infer TContent}` ? TContent : TArgument
+
+type myTest1 = RemoveMaps<'maps_england'>
+type myTest2 = RemoveMaps<'maps:usa'>
+type myTest3 = RemoveMaps<'nothing'>
+type myTest4 = RemoveMaps<boolean>
+
+// This version allows you to choose the substring.
+type RemoveSubstring<TOriginal extends string, TSubstring extends string> = TOriginal extends `${infer TBefore}${TSubstring}${infer TAfter}` ? `${TBefore}${TAfter}` : TOriginal
+
+type myTest5 = RemoveSubstring<'maps_google', 'maps_'>
+type myTest6 = RemoveSubstring<'maps__test', 'maps_'>
+type myTest7 = RemoveSubstring<'maps:hawaii', 'maps_'>
+type myTest8 = RemoveSubstring<'it\'s super effective', ' super'>
+type myTest9 = RemoveSubstring<'maps_google', 'o'>
+type myTest10 = RemoveSubstring<'hello there', ''>
+
+
+type letters = 'a' | 'b' | 'c' | 'd';
+type removeC<letters> = letters extends `c${string}` ? never : letters
+type withoutC = removeC<letters>;
+
+const myObj: Record<string, string[]> = {};
+
+myObj.foo.push('hello');
