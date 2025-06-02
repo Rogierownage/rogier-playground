@@ -1,0 +1,4 @@
+{
+    "extends": "../../tsconfig.json", // Inherit everything from the base tsconfig.
+    "exclude": [] // Overwrite the exclude so that it won't exclude its own directory.
+}

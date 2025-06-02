@@ -950,7 +950,3 @@ type myTest10 = RemoveSubstring<'hello there', ''>
 type letters = 'a' | 'b' | 'c' | 'd';
 type removeC<letters> = letters extends `c${string}` ? never : letters
 type withoutC = removeC<letters>;
-
-const myObj: Record<string, string[]> = {};
-
-myObj.foo.push('hello');
