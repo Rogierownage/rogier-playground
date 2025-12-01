@@ -457,3 +457,9 @@ export PATH="$PATH:$HOME/.composer/vendor/bin" # load composer
 
 # Run the previous command in sudo. For when something doesn't work for some stupid permissions-related reason.
 alias fuck='sudo $(history -p \!\!)'
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+source /home/developer/projects/devtools/bootstrap.sh
